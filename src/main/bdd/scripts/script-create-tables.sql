@@ -1,0 +1,2 @@
+CREATE TABLE Profils (id_profil INTEGER  AUTO_INCREMENT NOT NULL, profil_name VARCHAR(20), profil_description VARCHAR(100), PRIMARY KEY (id_profil) ) ENGINE=InnoDB;  
+CREATE TABLE Users (id_user INT  AUTO_INCREMENT NOT NULL, user_lastname VARCHAR(50), user_firstname VARCHAR(50), user_address VARCHAR(100), user_entrancedate DATE, user_modificationDate DATETIME, id_profil INTEGER NOT NULL, PRIMARY KEY (id_user) ) ENGINE=InnoDB;  

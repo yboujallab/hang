@@ -1,0 +1,1 @@
+ALTER TABLE Users ADD CONSTRAINT FK_Users_id_profil FOREIGN KEY (id_profil) REFERENCES Profils (id_profil); 
