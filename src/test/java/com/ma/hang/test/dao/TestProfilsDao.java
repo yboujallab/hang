@@ -22,6 +22,7 @@ import com.ma.hang.core.entities.Profil;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:core-context-test-hibernate.xml",
 		"classpath:core-context-test-dao.xml" })
+@Transactional
 public class TestProfilsDao {
 
 //	@Autowired
@@ -35,7 +36,6 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	@Transactional
 	public void createProfilsTest() {
 		Profil profil = null;
 		try {
@@ -64,7 +64,6 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	@Transactional
 	public void findByIdProfilsTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 1";
@@ -94,7 +93,6 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	@Transactional
 	public void deleteProfilByIdTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 2";
@@ -127,7 +125,6 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	@Transactional
 	public void updateProfilsTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 2";
@@ -165,7 +162,6 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	@Transactional
 	public void deleteProfilByEntityTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 3";
@@ -200,7 +196,6 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	@Transactional
 	public void findByCriteriaProfilsTest() {
 		Profil profil1 = null;
 		Profil profil2 = null;

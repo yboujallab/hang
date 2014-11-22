@@ -2,8 +2,6 @@ package com.ma.hang.core.dao.impl;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +16,6 @@ import com.ma.hang.core.entities.Profil;
  * **/
 
 @Repository
-@Transactional
 public class ProfilDao extends AbstractHibernateDao<Profil> implements
 		IProfilDao {
 

@@ -31,22 +31,30 @@ public class User implements Serializable {
 	@Column(name="id_user")
 	private int idUser;
 
-	@Column(name="user_address")
-	private String userAddress;
+	@Column(name="email")
+	private String email;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="user_entrancedate")
-	private Date userEntrancedate;
+	@Column(name="firstname")
+	private String firstname;
 
-	@Column(name="user_firstname")
-	private String userFirstname;
-
-	@Column(name="user_lastname")
+	@Column(name="lastname")
 	private String userLastname;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date user_modificationDate;
+	@Column(name="modified_at")
+	private Date modificationDate;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_at")
+	private Date creationDate;
+	
+	@Column(name="encrypted_password")
+	private String encryptedPassword;
+
+	@Column(name="salt")
+	private String salt;
+	
+	
 	//bi-directional many-to-one association to Profil
 	@ManyToOne
 	@JoinColumn(name="id_profil")
@@ -56,59 +64,76 @@ public class User implements Serializable {
 	}
 
 	public int getIdUser() {
-		return this.idUser;
+		return idUser;
 	}
 
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
 
-	public String getUserAddress() {
-		return this.userAddress;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public Date getUserEntrancedate() {
-		return this.userEntrancedate;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setUserEntrancedate(Date userEntrancedate) {
-		this.userEntrancedate = userEntrancedate;
-	}
-
-	public String getUserFirstname() {
-		return this.userFirstname;
-	}
-
-	public void setUserFirstname(String userFirstname) {
-		this.userFirstname = userFirstname;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getUserLastname() {
-		return this.userLastname;
+		return userLastname;
 	}
 
 	public void setUserLastname(String userLastname) {
 		this.userLastname = userLastname;
 	}
 
-	public Date getUser_modificationDate() {
-		return this.user_modificationDate;
+	public Date getModificationDate() {
+		return modificationDate;
 	}
 
-	public void setUser_modificationDate(Date user_modificationDate) {
-		this.user_modificationDate = user_modificationDate;
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
+
+	public String getEncryptedPassword() {
+		return encryptedPassword;
+	}
+
+	public void setEncryptedPassword(String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	public Profil getProfil() {
-		return this.profil;
+		return profil;
 	}
 
 	public void setProfil(Profil profil) {
 		this.profil = profil;
 	}
 
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	
 }
