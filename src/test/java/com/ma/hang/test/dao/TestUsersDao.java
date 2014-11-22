@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 
 
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ma.hang.core.dao.IProfilDao;
 import com.ma.hang.core.dao.IUserDao;
+import com.ma.hang.core.dto.UserDto;
 import com.ma.hang.core.entities.Profil;
 import com.ma.hang.core.entities.User;
 import com.ma.hang.core.util.PasswordService;
@@ -70,35 +72,31 @@ public class TestUsersDao {
 	@Test
 	public void createUsersTest() {
 		insertProfils();
-		User user = null;
+		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
 		String password;
-		String salt;
-		String pwdEncrypted;
 		String email;
 		try {
 			//insert users
 			for (int i = 0; i < 10; i++) {
-			 password = new String("Password"+i);
-			 salt = PasswordService.getInstance().makeSalt(password);
-			 pwdEncrypted = PasswordService.getInstance().encryptPassword(password, salt);
-				user = new User();
+				password = new String("Password"+i);
+				user = new UserDto();
 				email = new String("email"+i+"@example.com");
 				user.setEmail(email);
 				user.setFirstname("firstname" + i);
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setUserLastname("lastname" + i);
-				user.setProfil(profilDao.findOne(1));
-				user.setEncryptedPassword(pwdEncrypted);
-				user.setSalt(salt);
-				userDao.create(user);
+				user.setIdprofil(i+1);
+				user.setPassword(password);
+				userDao.createUser(user);
 				//check authentication
+				//boolean isauthok = userDao.authenticate(email, password);
 				assertTrue(userDao.authenticate(email, password));
 			}
 			//Check insertion 
-			List<Profil> listProfil = this.profilDao.findAll();
-			assertThat(10, equalTo(listProfil.size()));
+			List<User> listUsers = this.userDao.findAll();
+			assertThat(10, equalTo(listUsers.size()));
 
 		} catch (final HibernateException he) {
 			he.printStackTrace();

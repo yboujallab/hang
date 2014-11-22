@@ -48,7 +48,7 @@ public final class PasswordService {
 			throws Exception {
 		try {
 			StringBuffer strEncryptedPwd = new StringBuffer();
-			strEncryptedPwd.append(salt);
+			strEncryptedPwd.append(salt.toString());
 			strEncryptedPwd.append(password);
 			return encrypt(strEncryptedPwd.toString());
 		} catch (Exception exp) {

@@ -15,6 +15,7 @@ public class UserDto implements Serializable{
 	private int idUser;
 	private String email;
 	private String firstname;
+	private String password;
 	private String userLastname;
 	private Date modificationDate;
 	private Date creationDate;
@@ -61,6 +62,12 @@ public class UserDto implements Serializable{
 	}
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

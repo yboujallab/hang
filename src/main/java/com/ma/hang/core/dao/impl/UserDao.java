@@ -1,10 +1,16 @@
 package com.ma.hang.core.dao.impl;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.hibernate.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ma.hang.core.dao.IProfilDao;
 import com.ma.hang.core.dao.IUserDao;
 import com.ma.hang.core.dao.common.AbstractHibernateDao;
+import com.ma.hang.core.dto.UserDto;
 import com.ma.hang.core.entities.User;
 import com.ma.hang.core.util.PasswordService;
 
@@ -17,6 +23,10 @@ import com.ma.hang.core.util.PasswordService;
 public class UserDao extends AbstractHibernateDao<User> implements
 		IUserDao {
 
+	
+    @Autowired
+    private IProfilDao profilDao;
+	
 	public UserDao() {
 		super();
 		setClazz(User.class);
@@ -49,6 +59,32 @@ public class UserDao extends AbstractHibernateDao<User> implements
 
 		return (User) result.list().get(0);
 	}
+	@Override
+    public void createUser(UserDto userDto) throws Exception {
+    	User userToAdd = new User();
+    	Date now = Calendar.getInstance().getTime();
+    	String salt=null;
+    	String pwdEncrypted=null;
+    	try {
+	    	//salt generation
+			salt = PasswordService.getInstance().makeSalt(userDto.getPassword());
+	    	//pwd generation
+	        pwdEncrypted = PasswordService.getInstance().encryptPassword(userDto.getPassword(), salt);
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new Exception("Error while encryption password",e);
+		}
+    	userToAdd.setCreationDate(now);
+    	userToAdd.setEmail(userDto.getEmail());
+    	userToAdd.setFirstname(userDto.getFirstname());
+    	userToAdd.setUserLastname(userDto.getUserLastname());
+    	userToAdd.setModificationDate(now);
+    	userToAdd.setEncryptedPassword(pwdEncrypted);
+    	userToAdd.setSalt(salt);
+    	userToAdd.setModificationDate(now);
+    	userToAdd.setProfil(profilDao.findOne(userDto.getIdprofil()));
+        getCurrentSession().saveOrUpdate(userToAdd);
+    }
 	
 }

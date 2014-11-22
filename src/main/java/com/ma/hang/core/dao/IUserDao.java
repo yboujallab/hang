@@ -3,6 +3,7 @@ package com.ma.hang.core.dao;
 import org.springframework.stereotype.Repository;
 
 import com.ma.hang.core.dao.common.IOperations;
+import com.ma.hang.core.dto.UserDto;
 import com.ma.hang.core.entities.User;
 
 
@@ -10,4 +11,5 @@ import com.ma.hang.core.entities.User;
 public interface IUserDao extends IOperations<User> {
 	User findByEmail(String email);
 	public boolean authenticate(String email, String submittedPassword) throws Exception;
+	public void createUser(UserDto userDto) throws Exception ;
 }
