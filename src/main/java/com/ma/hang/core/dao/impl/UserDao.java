@@ -37,12 +37,16 @@ public class UserDao extends AbstractHibernateDao<User> implements
 		// TODO Auto-generated method stub
 		User usr = findByEmail(email);
 		if (usr != null){
+			//check that the user is activated and not locked
+			if (!usr.getIsActivated() || usr.getIslocked()) 
+				return false;
+			//encrypt password and check it to log in
 			String encryptedPwd = PasswordService.getInstance().encryptPassword(submittedPassword, usr.getSalt());
 			StringBuilder query = new StringBuilder("from User ");
 			query.append(" where email='"+email+"'");
 			query.append(" and encryptedPassword='"+ encryptedPwd+ "'");
 			Query result = getCurrentSession().createQuery(query.toString());
-			if (result.list().isEmpty() || result.list().size() == 0) return false;
+			if (result.list().isEmpty() || result.list().size() == 0 ) return false;
 			return true;
 		}else{
 			return false;
@@ -56,7 +60,6 @@ public class UserDao extends AbstractHibernateDao<User> implements
 		StringBuilder query = new StringBuilder("from User ");
 		query.append(" where email='"+email+"'");
 		Query result = getCurrentSession().createQuery(query.toString());
-
 		return (User) result.list().get(0);
 	}
 	@Override
@@ -83,6 +86,8 @@ public class UserDao extends AbstractHibernateDao<User> implements
     	userToAdd.setEncryptedPassword(pwdEncrypted);
     	userToAdd.setSalt(salt);
     	userToAdd.setModificationDate(now);
+    	userToAdd.setIsActivated(true);
+    	userToAdd.setIslocked(false);
     	userToAdd.setProfil(profilDao.findOne(userDto.getIdprofil()));
         getCurrentSession().saveOrUpdate(userToAdd);
     }

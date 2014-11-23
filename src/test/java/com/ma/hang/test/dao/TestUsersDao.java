@@ -2,11 +2,8 @@ package com.ma.hang.test.dao;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.junit.Assert.assertTrue;
-
-
-
+import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,7 +22,6 @@ import com.ma.hang.core.dao.IUserDao;
 import com.ma.hang.core.dto.UserDto;
 import com.ma.hang.core.entities.Profil;
 import com.ma.hang.core.entities.User;
-import com.ma.hang.core.util.PasswordService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:core-context-test-hibernate.xml",

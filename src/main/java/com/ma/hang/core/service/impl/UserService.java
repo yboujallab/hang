@@ -36,4 +36,20 @@ public class UserService extends AbstractService<User> implements IUserService {
         return dao;
     }
 
+	@Override
+	public User findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return dao.findByEmail(email);
+	}
+
+	@Override
+	public boolean authenticate(String email, String submittedPassword)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return dao.authenticate(email, submittedPassword);
+	}
+
+    
+    
+    
 }

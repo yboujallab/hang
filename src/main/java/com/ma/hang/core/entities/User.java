@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
+
 /**
  * The persistent class for the users database table.
  * 
@@ -31,7 +32,7 @@ public class User implements Serializable {
 	@Column(name="id_user")
 	private int idUser;
 
-	@Column(name="email")
+	@Column(name="email",unique=true)
 	private String email;
 
 	@Column(name="firstname")
@@ -53,7 +54,12 @@ public class User implements Serializable {
 
 	@Column(name="salt")
 	private String salt;
-	
+
+	@Column(name="active")	
+	private boolean isActivated;
+
+	@Column(name="locked")	
+	private boolean islocked;
 	
 	//bi-directional many-to-one association to Profil
 	@ManyToOne
@@ -133,6 +139,22 @@ public class User implements Serializable {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public boolean getIsActivated() {
+		return isActivated;
+	}
+
+	public void setIsActivated(boolean isActivated) {
+		this.isActivated = isActivated;
+	}
+
+	public boolean getIslocked() {
+		return islocked;
+	}
+
+	public void setIslocked(boolean islocked) {
+		this.islocked = islocked;
 	}
 
 	
