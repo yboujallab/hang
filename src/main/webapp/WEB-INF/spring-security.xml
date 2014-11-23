@@ -17,7 +17,7 @@
 		    login-page="/login" 
 		    default-target-url="/dashboard" 
 			authentication-failure-url="/login?error" 
-			username-parameter="username"
+			username-parameter="email"
 			password-parameter="password" />
 		<logout logout-success-url="/login?logout" />
 		<!-- enable csrf protection -->
