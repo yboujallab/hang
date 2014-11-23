@@ -6,12 +6,15 @@
    xmlns:jee="http://www.springframework.org/schema/jee"
    xsi:schemaLocation="
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+      http://www.springframework.org/schema/tx 
+      http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
       http://www.springframework.org/schema/jee 
       http://www.springframework.org/schema/jee/spring-jee-4.0.xsd">
-      
-	 <context:annotation-config />
+
+	<context:annotation-config />
+	
+	<context:component-scan base-package="com.ma.hang.core" />
      
       <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -26,8 +29,12 @@
         </property>
     </bean> 
  
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/hangDB"
-		expected-type="javax.sql.DataSource" />
+     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/hangDB" />
+        <property name="username" value="hang" />
+        <property name="password" value="hang" />
+    </bean>
     
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
@@ -36,5 +43,4 @@
     <bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 	<tx:annotation-driven transaction-manager="txManager" /> 
-
 </beans>

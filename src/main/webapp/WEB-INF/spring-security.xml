@@ -10,10 +10,12 @@
  	<beans:bean id="hangAuthenticationProvider" class="com.ma.hang.security.provider.HangAuthenticationProvider"/>
 
 	<http auto-config="true">
-		<intercept-url pattern="/admin**" access="ROLE_USER" />
+		<intercept-url pattern="/admin**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/dashboard**" access="ROLE_USER" />
+		
 		<form-login 
 		    login-page="/login" 
-		    default-target-url="/welcome" 
+		    default-target-url="/dashboard" 
 			authentication-failure-url="/login?error" 
 			username-parameter="username"
 			password-parameter="password" />

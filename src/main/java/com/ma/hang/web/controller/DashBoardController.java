@@ -9,15 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
  
 @Controller
 //@RequestMapping(value = "/hello")
-public class HelloController {
+public class DashBoardController {
  
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/dashboard**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
  
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Custom Login Form");
-		model.addObject("message", "This is welcome page!");
-		model.setViewName("hello");
+		model.addObject("title", "hang plat Form");
+		model.addObject("message", "Welome to hang plat form!");
+		model.setViewName("dashboard");
 		return model;
  
 	}

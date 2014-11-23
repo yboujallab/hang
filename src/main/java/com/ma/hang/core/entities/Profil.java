@@ -22,8 +22,8 @@ public class Profil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_profil")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_profil", unique = true, nullable = false)
 	private int idProfil;
 
 	@Column(name="profil_description")

@@ -28,8 +28,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_user")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_user", unique = true, nullable = false)
 	private int idUser;
 
 	@Column(name="email",unique=true)
