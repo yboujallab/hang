@@ -66,93 +66,162 @@ public class User implements Serializable {
 	@JoinColumn(name="id_profil")
 	private Profil profil;
 
+	/**
+	 * Constructor
+	 */
 	public User() {
 	}
 
+	/**
+	 * @return id user
+	 */
 	public int getIdUser() {
 		return idUser;
 	}
 
+	/**
+	 * @param idUser
+	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
 
+	/**
+	 * @return email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * @return first name
+	 */ 
 	public String getFirstname() {
 		return firstname;
 	}
 
+	/**
+	 * @param firstname
+	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
+	/**
+	 * @return user last name
+	 */ 
 	public String getUserLastname() {
 		return userLastname;
 	}
 
+	/**
+	 * @param userLastname
+	 */
 	public void setUserLastname(String userLastname) {
 		this.userLastname = userLastname;
 	}
 
+	/**
+	 * @return modification date
+	 */
 	public Date getModificationDate() {
 		return modificationDate;
 	}
 
+	/**
+	 * @param modificationDate
+	 */
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate = modificationDate;
 	}
 
+	/**
+	 * @return encrypted password
+	 */
 	public String getEncryptedPassword() {
 		return encryptedPassword;
 	}
 
+	/**
+	 * @param encryptedPassword
+	 */
 	public void setEncryptedPassword(String encryptedPassword) {
 		this.encryptedPassword = encryptedPassword;
 	}
 
+	/**
+	 * @return salt
+	 */
 	public String getSalt() {
 		return salt;
 	}
 
+	/**
+	 * @param salt
+	 */
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
 
+	/**
+	 * @return profil
+	 */
 	public Profil getProfil() {
 		return profil;
 	}
 
+	/**
+	 * @param profil
+	 */
 	public void setProfil(Profil profil) {
 		this.profil = profil;
 	}
 
+	/**
+	 * @return creation date
+	 */
 	public Date getCreationDate() {
 		return creationDate;
 	}
 
+	/**
+	 * @param creationDate
+	 */
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 
+	/**
+	 * @return is activated
+	 */
 	public boolean getIsActivated() {
 		return isActivated;
 	}
 
+	/**
+	 * @param isActivated
+	 */
 	public void setIsActivated(boolean isActivated) {
 		this.isActivated = isActivated;
 	}
 
+	/**
+	 * @return is locked
+	 */
 	public boolean getIslocked() {
 		return islocked;
 	}
 
+	/**
+	 * @param islocked
+	 */
 	public void setIslocked(boolean islocked) {
 		this.islocked = islocked;
 	}

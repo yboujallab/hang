@@ -21,6 +21,10 @@ public class ProfilDto implements Serializable{
 	 */
 	private String profilName;
 
+	/**
+	 * @param profilDescription
+	 * @param profilName
+	 */
 	public ProfilDto(String profilDescription, String profilName) {
 		super();
 		this.profilDescription = profilDescription;
@@ -29,6 +33,9 @@ public class ProfilDto implements Serializable{
 	
 	
 
+	/**
+	 * 
+	 */
 	public ProfilDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,18 +43,30 @@ public class ProfilDto implements Serializable{
 
 
 
+	/**
+	 * @return profil description
+	 */
 	public String getProfilDescription() {
 		return profilDescription;
 	}
 
+	/**
+	 * @param profilDescription
+	 */
 	public void setProfilDescription(String profilDescription) {
 		this.profilDescription = profilDescription;
 	}
 
+	/**
+	 * @return profil name 
+	 */
 	public String getProfilName() {
 		return profilName;
 	}
 
+	/**
+	 * @param profilName
+	 */
 	public void setProfilName(String profilName) {
 		this.profilName = profilName;
 	}

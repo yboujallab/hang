@@ -9,8 +9,16 @@ import com.ma.hang.core.dto.ProfilDto;
 import com.ma.hang.core.entities.Profil;
 
 
+/**
+ * @author yboujallab
+ * Interface profil DAO
+ */
 @Repository
 public interface IProfilDao extends IOperations<Profil> {
     //
+	/**
+	 * @param profilBean
+	 * @return of profils
+	 */
 	List<Profil> findByCriteria(ProfilDto profilBean);
 }

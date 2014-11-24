@@ -9,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * @author yboujallab
+ * abstract dao 
+ * @param <T>
+ */
 @SuppressWarnings("unchecked")
-public abstract class AbstractHibernateDao<T extends Serializable> implements IOperations<T> {
+public abstract class AbstractDao<T extends Serializable> implements IOperations<T> {
     private Class<T> clazz;
 
     @Autowired

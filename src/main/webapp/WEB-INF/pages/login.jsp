@@ -1,25 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="layouts/_header.jsp"%>
 <html>
-
 <head>
-<link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
 <title>Login Page</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
+  <div class="jumbotron">
 	<div class="container">
-		<h3>Welcome to Hang, the other way to manage you store</h3>
+		<h2>Welcome to Hang, the other way to manage you store</h2>
 
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -57,6 +44,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

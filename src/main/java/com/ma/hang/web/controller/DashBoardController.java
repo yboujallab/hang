@@ -7,10 +7,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
  
+/**
+ * @author yboujallab
+ * Dash board controller 
+ *
+ */
 @Controller
 //@RequestMapping(value = "/hello")
 public class DashBoardController {
  
+	/**
+	 * @return dashboard page
+	 */
 	@RequestMapping(value = { "/", "/dashboard**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
  
@@ -22,6 +30,9 @@ public class DashBoardController {
  
 	}
  
+	/**
+	 * @return view admin
+	 */
 	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
  
@@ -35,6 +46,11 @@ public class DashBoardController {
 	}
  
 	//Spring Security see this :
+	/**
+	 * @param error
+	 * @param logout
+	 * @return login page
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
 		@RequestParam(value = "error", required = false) String error,

@@ -13,12 +13,20 @@ import com.ma.hang.core.service.IProfilService;
 import com.ma.hang.core.service.common.AbstractService;
 
 
+/**
+ * @author yboujallab
+ *
+ * Service to manage profil
+ */
 @Service
 public class ProfilService extends AbstractService<Profil> implements IProfilService {
 
     @Autowired
     private IProfilDao dao;
 
+    /**
+     *  Constructor
+     */
     public ProfilService() {
         super();
     }

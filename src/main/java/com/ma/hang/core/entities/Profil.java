@@ -33,29 +33,50 @@ public class Profil implements Serializable {
 	private String profilName;
 
 
+	/**
+	 * Constructor
+	 */
 	public Profil() {
 	}
 
+	/**
+	 * @return profil id
+	 */
 	public int getIdProfil() {
 		return this.idProfil;
 	}
 
+	/**
+	 * @param idProfil
+	 */
 	public void setIdProfil(int idProfil) {
 		this.idProfil = idProfil;
 	}
 
+	/**
+	 * @return profil description
+	 */
 	public String getProfilDescription() {
 		return this.profilDescription;
 	}
 
+	/**
+	 * @param profilDescription
+	 */
 	public void setProfilDescription(String profilDescription) {
 		this.profilDescription = profilDescription;
 	}
 
+	/** 
+	 * @return profil name
+	 */
 	public String getProfilName() {
 		return this.profilName;
 	}
 
+	/**
+	 * @param profilName
+	 */
 	public void setProfilName(String profilName) {
 		this.profilName = profilName;
 	}

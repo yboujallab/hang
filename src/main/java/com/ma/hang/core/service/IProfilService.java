@@ -8,7 +8,15 @@ import com.ma.hang.core.entities.Profil;
 
 
 
+/**
+ * @author yboujallab
+ * Interafce of profil service
+ */
 public interface IProfilService extends IOperations<Profil> {
     //
+	/**
+	 * @param profilBean
+	 * @return a list of profils founded
+	 */
 	List<Profil> findByCriteria(ProfilDto profilBean);
 }

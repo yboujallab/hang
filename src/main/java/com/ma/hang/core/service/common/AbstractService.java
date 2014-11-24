@@ -8,6 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ma.hang.core.dao.common.IOperations;
 
 
+/**
+ * @author yboujallab
+ * Abstract service class of all services
+ * @param <T>
+ */
 @Transactional
 public abstract class AbstractService<T extends Serializable> implements IOperations<T> {
 

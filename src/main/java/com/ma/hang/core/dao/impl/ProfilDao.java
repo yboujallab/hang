@@ -6,7 +6,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.ma.hang.core.dao.IProfilDao;
-import com.ma.hang.core.dao.common.AbstractHibernateDao;
+import com.ma.hang.core.dao.common.AbstractDao;
 import com.ma.hang.core.dto.ProfilDto;
 import com.ma.hang.core.entities.Profil;
 
@@ -16,9 +16,12 @@ import com.ma.hang.core.entities.Profil;
  * **/
 
 @Repository
-public class ProfilDao extends AbstractHibernateDao<Profil> implements
+public class ProfilDao extends AbstractDao<Profil> implements
 		IProfilDao {
 
+	/**
+	 * Constructor
+	 */
 	public ProfilDao() {
 		super();
 		setClazz(Profil.class);

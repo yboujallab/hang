@@ -16,13 +16,21 @@ import org.springframework.stereotype.Component;
 
 import com.ma.hang.core.service.IUserService;
 
+/**
+ * @author yboujallab
+ * Calss to manage the authentication 
+ *
+ */
 @Component
 public class HangAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private IUserService userService;
 	
-	  public HangAuthenticationProvider() {
+	  /**
+	 * 
+	 */
+	public HangAuthenticationProvider() {
 	        super();
 	    }
 

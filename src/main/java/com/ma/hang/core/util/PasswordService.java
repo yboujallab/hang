@@ -7,6 +7,10 @@ import java.util.Calendar;
 
 import sun.misc.BASE64Encoder;
 
+/**
+ * @author yboujallab
+ * class to hash password
+ */
 public final class PasswordService {
 
 	private static PasswordService instance;
@@ -32,6 +36,11 @@ public final class PasswordService {
 		return hash; // step 6
 	}
 
+	/**
+	 * @param password
+	 * @return salt
+	 * @throws Exception
+	 */
 	public synchronized String makeSalt(String password) throws Exception {
 		try {
 			StringBuffer salt = new StringBuffer();
@@ -44,6 +53,12 @@ public final class PasswordService {
 
 	}
 
+	/**
+	 * @param password
+	 * @param salt
+	 * @return password encrypted
+	 * @throws Exception
+	 */
 	public synchronized String encryptPassword(String password, String salt)
 			throws Exception {
 		try {
@@ -56,6 +71,9 @@ public final class PasswordService {
 		}
 	}
 
+	/**
+	 * @return instance of the class
+	 */
 	public static synchronized PasswordService getInstance() // step 1
 	{
 		if (instance == null) {

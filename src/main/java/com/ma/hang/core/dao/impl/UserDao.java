@@ -1,5 +1,7 @@
 package com.ma.hang.core.dao.impl;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,9 +15,10 @@ import ch.qos.logback.classic.Logger;
 
 import com.ma.hang.core.dao.IProfilDao;
 import com.ma.hang.core.dao.IUserDao;
-import com.ma.hang.core.dao.common.AbstractHibernateDao;
+import com.ma.hang.core.dao.common.AbstractDao;
 import com.ma.hang.core.dto.UserDto;
 import com.ma.hang.core.entities.User;
+import com.ma.hang.core.exception.HangTechnicalException;
 import com.ma.hang.core.util.PasswordHash;
 
 /**
@@ -24,13 +27,16 @@ import com.ma.hang.core.util.PasswordHash;
 
 @Repository
 @Transactional
-public class UserDao extends AbstractHibernateDao<User> implements IUserDao {
+public class UserDao extends AbstractDao<User> implements IUserDao {
 	final static Logger logger = (Logger) LoggerFactory
 			.getLogger(UserDao.class);
 
 	@Autowired
 	private IProfilDao profilDao;
 
+	/**
+	 * Constructor
+	 */
 	public UserDao() {
 		super();
 		setClazz(User.class);
@@ -38,48 +44,29 @@ public class UserDao extends AbstractHibernateDao<User> implements IUserDao {
 
 	@Override
 	public boolean authenticate(String email, String submittedPassword)
-			throws Exception {
-		if (logger.isDebugEnabled())
-			logger.debug("in authetication method");
-		// TODO Auto-generated method stub
+			throws HangTechnicalException,NoSuchAlgorithmException, InvalidKeySpecException {
 		if (email.isEmpty())
 			return false;
 		User usr = findByEmail(email);
 		if (usr != null) {
-			if (logger.isDebugEnabled())
-				logger.debug("One user found with email :" + email);
 			// check that the user is activated and not locked
 			if (!usr.getIsActivated() || usr.getIslocked())
 				return false;
-			// encrypt password and check it to log in
-			// String encryptedPwd =
-			// PasswordService.getInstance().encryptPassword(submittedPassword,
-			// usr.getSalt());
 			boolean isPwdOk = PasswordHash.validatePassword(submittedPassword,
 					usr.getEncryptedPassword());
 			if (!isPwdOk)
 				return false;
-			/*
-			 * StringBuilder query = new StringBuilder("from User ");
-			 * query.append(" where email='"+email+"'");
-			 * query.append(" and encryptedPassword='"+ encryptedPwd+ "'");
-			 * Query result = getCurrentSession().createQuery(query.toString());
-			 * if (result.list().isEmpty() || result.list().size() == 0 ) return
-			 * false;
-			 */if (logger.isDebugEnabled())
-				logger.debug("user : " + email + " authenticated");
 			return true;
 		} else {
-			if (logger.isDebugEnabled())
-				logger.debug("No user found with email :" + email);
 			return false;
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ma.hang.core.dao.IUserDao#findByEmail(java.lang.String)
+	 */
 	@Override
 	public User findByEmail(String email) {
-		if (logger.isDebugEnabled())
-			logger.debug("in findByEmail method");
 		StringBuilder query = new StringBuilder("from User ");
 		query.append(" where email='" + email + "'");
 		Query result = getCurrentSession().createQuery(query.toString());
@@ -88,32 +75,22 @@ public class UserDao extends AbstractHibernateDao<User> implements IUserDao {
 			return null;
 		return (User) result.list().get(0);
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see com.ma.hang.core.dao.IUserDao#createUser(com.ma.hang.core.dto.UserDto)
+	 */
 	@Override
-	public void createUser(UserDto userDto) throws Exception {
-		if (logger.isDebugEnabled())
-			logger.debug("in createUser method");
-
+	public void createUser(UserDto userDto) throws HangTechnicalException {
 		User userToAdd = new User();
 		Date now = Calendar.getInstance().getTime();
 		String salt = null;
 		String pwdEncrypted = null;
 		try {
-			// salt generation
-			// salt =
-			// PasswordService.getInstance().makeSalt(userDto.getPassword());
-			// encryption of password
 			pwdEncrypted = PasswordHash.createHash(userDto.getPassword());
-			// pwd generation
-			// pwdEncrypted =
-			// PasswordService.getInstance().encryptPassword(userDto.getPassword(),
-			// salt);
-
 		} catch (Exception e) {
 			if (logger.isErrorEnabled())
 				logger.error("Error while creating user", e);
-			// TODO Auto-generated catch block
-			throw new Exception("Error while encryption password", e);
+			throw new HangTechnicalException("Error while encryption password", e);
 		}
 		userToAdd.setCreationDate(now);
 		userToAdd.setEmail(userDto.getEmail());
@@ -127,8 +104,5 @@ public class UserDao extends AbstractHibernateDao<User> implements IUserDao {
 		userToAdd.setIslocked(false);
 		userToAdd.setProfil(profilDao.findOne(userDto.getIdprofil()));
 		getCurrentSession().saveOrUpdate(userToAdd);
-		if (logger.isDebugEnabled())
-			logger.debug("End of createUser method");
-
 	}
 }
