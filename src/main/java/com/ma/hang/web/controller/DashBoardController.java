@@ -23,7 +23,7 @@ public class DashBoardController {
 	public ModelAndView welcomePage() {
  
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "hang plat Form");
+		model.addObject("title", "Hang plat Form");
 		model.addObject("message", "Welome to hang plat form!");
 		model.setViewName("dashboard");
 		return model;

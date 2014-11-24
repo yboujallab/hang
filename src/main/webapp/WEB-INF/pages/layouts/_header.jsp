@@ -16,7 +16,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -32,9 +31,30 @@
         <li><a href="#">Settings</a></li>
         <li><a href="<c:url value='help' />">Help</a></li>
         <li><a href="#">About</a></li>
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<li><a
+					href="javascript:formSubmit()"> Logout</a>
+			</li>
+		</c:if>        
       </ul>
     </div>
   </div>
+  
+  
+  				<c:url value="/j_spring_security_logout" var="logoutUrl" />
+				<!-- csrt for log out-->
+				<form action="${logoutUrl}" method="post" id="logoutForm">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</form>
+				<script>
+					function formSubmit() {
+						document.getElementById("logoutForm").submit();
+					}
+				</script>
+
+  
+  
 </nav>
 </body>
 </html>
