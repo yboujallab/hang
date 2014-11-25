@@ -1,11 +1,17 @@
 package com.ma.hang.test.dao;
 
 import static org.hamcrest.Matchers.equalTo;
+
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.hibernate.HibernateException;
 import org.junit.Test;
@@ -19,6 +25,10 @@ import com.ma.hang.core.dao.IProfilDao;
 import com.ma.hang.core.dto.ProfilDto;
 import com.ma.hang.core.entities.Profil;
 
+/**
+ * @author yboujallab
+ * Test class of profils
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:core-context-test-hibernate.xml",
 		"classpath:core-context-test-dao.xml" })
@@ -36,7 +46,7 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	public void createProfilsTest() {
+	public void createProfilsDaoTest() {
 		Profil profil = null;
 		try {
 			//insert profils
@@ -58,13 +68,42 @@ public class TestProfilsDao {
 			fail();
 		}
 	}
+	
+	/***
+	 * Profil Creation test Be careful the database is automatically rollbacked
+	 * after de tests
+	 * **/
+	@Test
+	public void createProfilsTestDaoKo_nameNull() {
+		Profil profil = null;
+		try {
+			//insert profils
+			for (int i = 0; i < 10; i++) {
+				profil = new Profil();
+				profil.setProfilDescription("profil of administrataion" + i);
+				this.profilDao.create(profil);
+			}
+			fail();
+		}  catch (ConstraintViolationException e) {
+			//e.printStackTrace();
+			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+			if (violations.size() > 1)
+				fail();
+			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
+			ConstraintViolation<?> violationInError = iter.next();
+				String msgTemplate = violationInError.getMessageTemplate();
+				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+		}
+		
+	}
+	
 	/***
 	 * find profil by id test 
 	 * Be careful the database is automatically rollbacked
 	 * after de tests
 	 * **/
 	@Test
-	public void findByIdProfilsTest() {
+	public void findByIdProfilsDaoTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 1";
 		String profilName = "administrator1";
@@ -93,7 +132,7 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	public void deleteProfilByIdTest() {
+	public void deleteProfilByIdDaoTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 2";
 		String profilName = "administrator2";
@@ -125,7 +164,7 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	public void updateProfilsTest() {
+	public void updateProfilsDaoTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 2";
 		String profilName = "administrator2";
@@ -162,7 +201,7 @@ public class TestProfilsDao {
 	 * after de tests
 	 * **/
 	@Test
-	public void deleteProfilByEntityTest() {
+	public void deleteProfilByEntityDaoTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 3";
 		String profilName = "administrator3";

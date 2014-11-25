@@ -4,7 +4,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.hibernate.HibernateException;
 import org.junit.Assert;
@@ -20,6 +25,10 @@ import com.ma.hang.core.entities.Profil;
 import com.ma.hang.core.service.IProfilService;
 
 
+/**
+ * @author yboujallab
+ * class test service
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"classpath:core-context-test-hibernate.xml",
@@ -39,7 +48,7 @@ public class TestProfilsService {
 	 * after de tests
 	 * **/
 	@Test
-	public void createProfilsTest() {
+	public void createProfilsServiceTest() {
 		Profil profil = null;
 		try {
 			//insert profils
@@ -61,13 +70,42 @@ public class TestProfilsService {
 			fail();
 		}
 	}
+
+	/***
+	 * Profil Creation test Be careful the database is automatically rollbacked
+	 * after de tests
+	 * **/
+	@Test
+	public void createProfilsServiceTestKo_nameNull() {
+		Profil profil = null;
+		try {
+			//insert profils
+			for (int i = 0; i < 10; i++) {
+				profil = new Profil();
+				profil.setProfilDescription("profil of administrataion" + i);
+				this.profilService.create(profil);
+			}
+			fail();
+		}  catch (ConstraintViolationException e) {
+			//e.printStackTrace();
+			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+			if (violations.size() > 1)
+				fail();
+			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
+			ConstraintViolation<?> violationInError = iter.next();
+				String msgTemplate = violationInError.getMessageTemplate();
+				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+		}
+		
+	}
+	
 	/***
 	 * find profil by id test 
 	 * Be careful the database is automatically rollbacked
 	 * after de tests
 	 * **/
 	@Test
-	public void findByIdProfilsTest() {
+	public void findByIdProfilsServiceTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 1";
 		String profilName = "administrator1";
@@ -96,7 +134,7 @@ public class TestProfilsService {
 	 * after de tests
 	 * **/
 	@Test
-	public void deleteProfilByIdTest() {
+	public void deleteProfilByIdServiceTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 2";
 		String profilName = "administrator2";
@@ -128,7 +166,7 @@ public class TestProfilsService {
 	 * after de tests
 	 * **/
 	@Test
-	public void updateProfilsTest() {
+	public void updateProfilsServiceTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 2";
 		String profilName = "administrator2";
@@ -165,7 +203,7 @@ public class TestProfilsService {
 	 * after de tests
 	 * **/
 	@Test
-	public void deleteProfilByEntityTest() {
+	public void deleteProfilByEntityServiceTest() {
 		Profil profil = null;
 		String profilDescritpion = "profil of administrataion 3";
 		String profilName = "administrator3";
@@ -199,7 +237,7 @@ public class TestProfilsService {
 	 * after de tests
 	 * **/
 	@Test
-	public void findByCriteriaProfilsTest() {
+	public void findByCriteriaProfilsServiceTest() {
 		Profil profil1 = null;
 		Profil profil2 = null;
 		Profil profil3 = null;

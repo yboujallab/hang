@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ma.hang.web.constants.URLRestConstants;
+
  
 /**
  * @author yboujallab
@@ -12,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-@RequestMapping(value = "/help")
+@RequestMapping(value = URLRestConstants.url_help_root)
 public class HelpController {
  
 	/**

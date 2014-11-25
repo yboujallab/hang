@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -28,7 +29,8 @@ public class Profil implements Serializable {
 
 	@Column(name="profil_description")
 	private String profilDescription;
-
+	
+	@NotNull
 	@Column(name="profil_name")
 	private String profilName;
 

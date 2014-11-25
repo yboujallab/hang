@@ -47,12 +47,12 @@ public class UserService extends AbstractService<User> implements IUserService {
 	@Override
 	public User findByEmail(String email) {
 		// TODO Auto-generated method stub
-		return dao.findByEmail(email);
+		return ((IUserDao) getDao()).findByEmail(email);
 	}
 	@Override
-	public boolean authenticate(String email, String submittedPassword)
+	public User authenticate(String email, String submittedPassword)
 			throws HangTechnicalException,NoSuchAlgorithmException, InvalidKeySpecException {
 		// TODO Auto-generated method stub
-		return dao.authenticate(email, submittedPassword);
+		return ((IUserDao) getDao()).authenticate(email, submittedPassword);
 	}
 }

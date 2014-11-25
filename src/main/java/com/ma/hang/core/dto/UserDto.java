@@ -2,6 +2,8 @@ package com.ma.hang.core.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.ma.hang.core.entities.Profil;
 /**
  * Bean to create user
  */
@@ -19,7 +21,7 @@ public class UserDto implements Serializable{
 	private String userLastname;
 	private Date modificationDate;
 	private Date creationDate;
-	private int idprofil;
+	private Profil profil;
 	
 	/**
 	 * @return id user
@@ -84,14 +86,14 @@ public class UserDto implements Serializable{
 	/**
 	 * @return profil id
 	 */
-	public int getIdprofil() {
-		return idprofil;
+	public Profil getProfil() {
+		return profil;
 	}
 	/**
-	 * @param idprofil
+	 * @param profil
 	 */
-	public void setIdprofil(int idprofil) {
-		this.idprofil = idprofil;
+	public void setProfil(Profil profil) {
+		this.profil = profil;
 	}
 	/**
 	 * @return creation date

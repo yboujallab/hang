@@ -40,14 +40,14 @@ public class HangAuthenticationProvider implements AuthenticationProvider {
 	    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
 	        final String email = authentication.getName();
 	        final String submittedPassword = authentication.getCredentials().toString();
-	        boolean isLoginOk=false;
+	        com.ma.hang.core.entities.User user=null;
 			try {
-				isLoginOk = userService.authenticate(email, submittedPassword);
+				user = userService.authenticate(email, submittedPassword);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        if (isLoginOk) {
+	        if (user != null) {
 	            final List<GrantedAuthority> grantedAuths = new ArrayList<>();
 	            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
 	            final UserDetails principal = new User(email, submittedPassword, grantedAuths);

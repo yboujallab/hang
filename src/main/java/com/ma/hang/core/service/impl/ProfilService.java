@@ -41,7 +41,7 @@ public class ProfilService extends AbstractService<Profil> implements IProfilSer
 	@Override
 	public List<Profil> findByCriteria(ProfilDto profilBean) {
 		// TODO Auto-generated method stub
-		return dao.findByCriteria(profilBean);
+		return ((IProfilDao) getDao()).findByCriteria(profilBean);
 	}
 
 

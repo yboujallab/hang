@@ -16,11 +16,11 @@
            </Pattern>
 	</encoder>
  
-	<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+<!-- 	<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 		<FileNamePattern>${catalina.base}/logs/hangapp.%i.log.zip</FileNamePattern>
 		<MinIndex>1</MinIndex>
 		<MaxIndex>10</MaxIndex>
-	</rollingPolicy>
+	</rollingPolicy> -->
  
 	<triggeringPolicy
 		class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">

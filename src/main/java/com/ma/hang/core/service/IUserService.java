@@ -28,7 +28,7 @@ public interface IUserService extends IOperations<User> {
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeySpecException
 	 */
-	public boolean authenticate(String email, String submittedPassword) throws HangTechnicalException,NoSuchAlgorithmException, InvalidKeySpecException;
+	public User authenticate(String email, String submittedPassword) throws HangTechnicalException,NoSuchAlgorithmException, InvalidKeySpecException;
 	/**
 	 * @param userDto
 	 * @throws HangTechnicalException

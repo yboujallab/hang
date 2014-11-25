@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ma.hang.web.constants.URLRestConstants;
+
  
 /**
  * @author yboujallab
@@ -13,13 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-//@RequestMapping(value = "/hello")
 public class DashBoardController {
  
 	/**
 	 * @return dashboard page
 	 */
-	@RequestMapping(value = { "/", "/dashboard**" }, method = RequestMethod.GET)
+	@RequestMapping(value = {URLRestConstants.url_root, URLRestConstants.url_dashboard_root }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
  
 		ModelAndView model = new ModelAndView();
@@ -31,27 +32,11 @@ public class DashBoardController {
 	}
  
 	/**
-	 * @return view admin
-	 */
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
- 
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Custom Login Form");
-		model.addObject("message", "This is protected page!");
-		model.setViewName("admin");
- 
-		return model;
- 
-	}
- 
-	//Spring Security see this :
-	/**
 	 * @param error
 	 * @param logout
 	 * @return login page
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = URLRestConstants.url_dashboard_login, method = RequestMethod.GET)
 	public ModelAndView login(
 		@RequestParam(value = "error", required = false) String error,
 		@RequestParam(value = "logout", required = false) String logout) {

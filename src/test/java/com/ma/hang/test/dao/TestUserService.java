@@ -24,12 +24,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ma.hang.core.dao.IProfilDao;
-import com.ma.hang.core.dao.IUserDao;
 import com.ma.hang.core.dto.UserDto;
 import com.ma.hang.core.entities.Profil;
 import com.ma.hang.core.entities.User;
 import com.ma.hang.core.exception.HangTechnicalException;
+import com.ma.hang.core.service.IProfilService;
+import com.ma.hang.core.service.IUserService;
 
 /**
  * @author yboujallab
@@ -37,17 +37,19 @@ import com.ma.hang.core.exception.HangTechnicalException;
  * Class test of users
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:core-context-test-hibernate.xml",
-		"classpath:core-context-test-dao.xml" })
+@ContextConfiguration(locations = {
+		"classpath:core-context-test-hibernate.xml",
+		"classpath:core-context-test-dao.xml",
+		"classpath:core-context-test-service.xml"})
 @Transactional
-public class TestUsersDao {
+public class TestUserService {
 
 
 	@Autowired
-	private IUserDao userDao;
+	private IUserService userService;
 	
 	@Autowired
-	private IProfilDao profilDao;
+	private IProfilService profilService;
 
 	/***
 	 * Profil Creation test Be careful the database is automatically rollbacked
@@ -57,13 +59,13 @@ public class TestUsersDao {
 	public  void insertProfils(){
 		Profil profil = null;
 		try {
-			List<Profil> listProfil = profilDao.findAll();
+			List<Profil> listProfil = profilService.findAll();
 			//delete profils
 			if (!listProfil.isEmpty()){
 				Iterator<Profil> iter = listProfil.iterator();
 				while(iter.hasNext()){
 					profil = iter.next();
-					profilDao.delete(profil);
+					profilService.delete(profil);
 				}
 			}
 			//insert profils
@@ -71,10 +73,10 @@ public class TestUsersDao {
 				profil = new Profil();
 				profil.setProfilDescription("profil of administrataion" + i);
 				profil.setProfilName("administrator" + i);
-				profilDao.create(profil);
+				profilService.create(profil);
 			}
 			//Check insertion 
-			listProfil = profilDao.findAll();
+			listProfil = profilService.findAll();
 			assertThat(listProfil.size(), equalTo(10));
 		} catch (final HibernateException he) {
 			he.printStackTrace();
@@ -89,12 +91,12 @@ public class TestUsersDao {
 	 * test create and authenticate users
 	 */
 	@Test
-	public void createUsersTestOk() {
+	public void createUsersServiceTestOk() {
 		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
 		String password;
 		String email;
-		List<Profil> listProfils = profilDao.findAll();
+		List<Profil> listProfils = profilService.findAll();
 		
 		try {
 			//insert users
@@ -109,13 +111,13 @@ public class TestUsersDao {
 				user.setUserLastname("lastname" + i);
 				user.setProfil(listProfils.get(0));
 				user.setPassword(password);
-				userDao.createUser(user);
+				userService.createUser(user);
 				//check authentication
 				//boolean isauthok = userDao.authenticate(email, password);
-				assertNotNull(userDao.authenticate(email, password));
+				assertNotNull(userService.authenticate(email, password));
 			}
 			//Check insertion 
-			List<User> listUsers = this.userDao.findAll();
+			List<User> listUsers = this.userService.findAll();
 			assertThat(10, equalTo(listUsers.size()));
 
 		} catch (HibernateException he) {
@@ -130,11 +132,11 @@ public class TestUsersDao {
 	 * test create user with a null email
 	 */
 	@Test
-	public void createUsersTestKo_emailNull() {
+	public void createUsersServiceTestKo_emailNull() {
 		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
 		String password;
-		List<Profil> listProfils = profilDao.findAll();
+		List<Profil> listProfils = profilService.findAll();
 
 		try {
 			//insert users
@@ -146,7 +148,7 @@ public class TestUsersDao {
 				user.setUserLastname("lastname");
 				user.setProfil(listProfils.get(0));
 				user.setPassword(password);
-				userDao.createUser(user);
+				userService.createUser(user);
 				fail();
 		} catch (ConstraintViolationException e) {
 			e.printStackTrace();
@@ -158,8 +160,16 @@ public class TestUsersDao {
 				String msgTemplate = violationInError.getMessageTemplate();
 				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
 		} catch (HangTechnicalException e) {
-			// TODO Auto-generated catch block
-			fail();
+			assertThat("Erro while saving user", equalTo(e.getMessage()));
+			assertTrue(e.getCause() instanceof ConstraintViolationException);
+			ConstraintViolationException exp = (ConstraintViolationException) e.getCause();
+			Set<ConstraintViolation<?>> violations = exp.getConstraintViolations();
+			if (violations.size() > 1)
+				fail();
+			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
+			ConstraintViolation<?> violationInError = iter.next();
+				String msgTemplate = violationInError.getMessageTemplate();
+				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
 		} 
 	}
 
@@ -167,7 +177,7 @@ public class TestUsersDao {
 	 * test create user with a null profil
 	 */
 	@Test
-	public void createUsersTestKo_profilNull() {
+	public void createUsersServiceTestKo_profilNull() {
 		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
 		String password;
@@ -182,31 +192,31 @@ public class TestUsersDao {
 				user.setUserLastname("lastname");
 				user.setEmail("email");
 				user.setPassword(password);
-				userDao.createUser(user);
+				userService.createUser(user);
 				fail();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+		}  catch (HangTechnicalException e) {
+			assertThat("Erro while saving user", equalTo(e.getMessage()));
+			assertTrue(e.getCause() instanceof ConstraintViolationException);
+			ConstraintViolationException exp = (ConstraintViolationException) e.getCause();
+			Set<ConstraintViolation<?>> violations = exp.getConstraintViolations();
 			if (violations.size() > 1)
 				fail();
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
 				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
-		} catch (HangTechnicalException e) {
-			// TODO Auto-generated catch block
-			fail();
+
 		} 
 	}
 	/**
 	 * test create user with a null first name
 	 */
 	@Test
-	public void createUsersTestKo_firstNameNull() {
+	public void createUsersServiceTestKo_firstNameNull() {
 		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
 		String password;
-		List<Profil> listProfils = profilDao.findAll();
+		List<Profil> listProfils = profilService.findAll();
 
 		try {
 			//insert users
@@ -218,31 +228,30 @@ public class TestUsersDao {
 				user.setUserLastname("lastname");
 				user.setEmail("email");
 				user.setPassword(password);
-				userDao.createUser(user);
+				userService.createUser(user);
 				fail();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+		} catch (HangTechnicalException e) {
+			assertThat("Erro while saving user", equalTo(e.getMessage()));
+			assertTrue(e.getCause() instanceof ConstraintViolationException);
+			ConstraintViolationException exp = (ConstraintViolationException) e.getCause();
+			Set<ConstraintViolation<?>> violations = exp.getConstraintViolations();
 			if (violations.size() > 1)
 				fail();
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
 				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
-		} catch (HangTechnicalException e) {
-			// TODO Auto-generated catch block
-			fail();
 		} 
 	}
 	/**
 	 * test create user with a null last name
 	 */
 	@Test
-	public void createUsersTestKo_lastNameNull() {
+	public void createUsersServiceTestKo_lastNameNull() {
 		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
 		String password;
-		List<Profil> listProfils = profilDao.findAll();
+		List<Profil> listProfils = profilService.findAll();
 
 		try {
 			//insert users
@@ -254,20 +263,19 @@ public class TestUsersDao {
 				user.setFirstname("firstname");
 				user.setEmail("email");
 				user.setPassword(password);
-				userDao.createUser(user);
+				userService.createUser(user);
 				fail();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+		} catch (HangTechnicalException e) {
+			assertThat("Erro while saving user", equalTo(e.getMessage()));
+			assertTrue(e.getCause() instanceof ConstraintViolationException);
+			ConstraintViolationException exp = (ConstraintViolationException) e.getCause();
+			Set<ConstraintViolation<?>> violations = exp.getConstraintViolations();
 			if (violations.size() > 1)
 				fail();
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
 				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
-		} catch (HangTechnicalException e) {
-			// TODO Auto-generated catch block
-			fail();
 		} 
 	}	
 	
@@ -275,10 +283,10 @@ public class TestUsersDao {
 	 * test create user with a null password
 	 */
 	@Test
-	public void createUsersTestKo_pwdNull() {
+	public void createUsersServiceTestKo_pwdNull() {
 		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
-		List<Profil> listProfils = profilDao.findAll();
+		List<Profil> listProfils = profilService.findAll();
 		try {
 			//insert users
 				user = new UserDto();
@@ -288,21 +296,12 @@ public class TestUsersDao {
 				user.setFirstname("firstname");
 				user.setEmail("email");
 				user.setUserLastname("last name");
-				userDao.createUser(user);
+				userService.createUser(user);
 				fail();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-			if (violations.size() > 1)
-				fail();
-			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
-			ConstraintViolation<?> violationInError = iter.next();
-				String msgTemplate = violationInError.getMessageTemplate();
-				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
 		} catch (HangTechnicalException e) {
-			// TODO Auto-generated catch block
-			assertThat("Error while encryption password", equalTo(e.getMessage()));
-			assertTrue(e.getCause() instanceof NullPointerException);
+			e.printStackTrace();
+			assertThat("Erro while saving user", equalTo(e.getMessage()));
+			assertTrue(e.getCause().getCause() instanceof NullPointerException);
 		} 
 	}		
 	
@@ -310,7 +309,7 @@ public class TestUsersDao {
 	 * test create user with a null password
 	 */
 	@Test
-	public void createUsersTestKo_allNull() {
+	public void createUsersServiceTestKo_allNull() {
 		UserDto user = null;
 		Date now = Calendar.getInstance().getTime();
 		try {
@@ -319,11 +318,13 @@ public class TestUsersDao {
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setPassword("password");
-				userDao.createUser(user);
+				userService.createUser(user);
 				fail();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+		}  catch (HangTechnicalException e) {
+			assertThat("Erro while saving user", equalTo(e.getMessage()));
+			assertTrue(e.getCause() instanceof ConstraintViolationException);
+			ConstraintViolationException exp = (ConstraintViolationException) e.getCause();
+			Set<ConstraintViolation<?>> violations = exp.getConstraintViolations();
 			if (violations.size() != 4)
 				fail();
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
@@ -332,12 +333,8 @@ public class TestUsersDao {
 				violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
 				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
-			}
-		} catch (HangTechnicalException e) {
-			// TODO Auto-generated catch block
-			fail();
 		} 
 	}
 
-	
+	}
 }

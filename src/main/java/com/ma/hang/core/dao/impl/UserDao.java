@@ -43,22 +43,22 @@ public class UserDao extends AbstractDao<User> implements IUserDao {
 	}
 
 	@Override
-	public boolean authenticate(String email, String submittedPassword)
+	public User authenticate(String email, String submittedPassword)
 			throws HangTechnicalException,NoSuchAlgorithmException, InvalidKeySpecException {
 		if (email.isEmpty())
-			return false;
+			return null;
 		User usr = findByEmail(email);
 		if (usr != null) {
 			// check that the user is activated and not locked
 			if (!usr.getIsActivated() || usr.getIslocked())
-				return false;
+				return null;
 			boolean isPwdOk = PasswordHash.validatePassword(submittedPassword,
 					usr.getEncryptedPassword());
 			if (!isPwdOk)
-				return false;
-			return true;
+				return null;
+			return usr;
 		} else {
-			return false;
+			return null;
 		}
 	}
 
@@ -102,7 +102,9 @@ public class UserDao extends AbstractDao<User> implements IUserDao {
 		userToAdd.setModificationDate(now);
 		userToAdd.setIsActivated(true);
 		userToAdd.setIslocked(false);
-		userToAdd.setProfil(profilDao.findOne(userDto.getIdprofil()));
+//		Profil profil = profilDao.findOne(userDto.getIdprofil());
+//		userToAdd.set
+		userToAdd.setProfil(userDto.getProfil());
 		getCurrentSession().saveOrUpdate(userToAdd);
 	}
 }

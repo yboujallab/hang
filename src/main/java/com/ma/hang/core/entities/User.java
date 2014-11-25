@@ -2,6 +2,7 @@ package com.ma.hang.core.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 
 
@@ -32,12 +35,15 @@ public class User implements Serializable {
 	@Column(name="id_user", unique = true, nullable = false)
 	private int idUser;
 
+	@NotNull
 	@Column(name="email",unique=true)
 	private String email;
 
+	@NotNull
 	@Column(name="firstname")
 	private String firstname;
 
+	@NotNull
 	@Column(name="lastname")
 	private String userLastname;
 
@@ -49,6 +55,7 @@ public class User implements Serializable {
 	@Column(name="created_at")
 	private Date creationDate;
 	
+	@NotNull
 	@Column(name="encrypted_password")
 	private String encryptedPassword;
 
@@ -62,9 +69,16 @@ public class User implements Serializable {
 	private boolean islocked;
 	
 	//bi-directional many-to-one association to Profil
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="id_profil")
 	private Profil profil;
+	
+	//bi-directional many-to-one association to Profil
+	@OneToMany(mappedBy="user")
+	private List<Store> stores;
+	
+	
 
 	/**
 	 * Constructor
@@ -226,5 +240,40 @@ public class User implements Serializable {
 		this.islocked = islocked;
 	}
 
+	/**
+	 * @return stores
+	 */
+	public List<Store> getStores() {
+		return this.stores;
+	}
+
+	/**
+	 * @param stores
+	 */
+	public void setStores(List<Store> stores) {
+		this.stores = stores;
+	}
+
+	/**
+	 * @param store
+	 * @return store added
+	 */
+	public Store addStore(Store store) {
+		getStores().add(store);
+		store.setUser(this);
+
+		return store;
+	}
+
+	/**
+	 * @param store
+	 * @return store removed
+	 */
+	public Store removeStore(Store store) {
+		getStores().remove(store);
+		store.setUser(null);
+
+		return store;
+	}
 	
 }

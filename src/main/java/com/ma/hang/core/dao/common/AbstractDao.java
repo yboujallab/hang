@@ -40,8 +40,6 @@ public abstract class AbstractDao<T extends Serializable> implements IOperations
     @Override
     public final void create(final T entity) {
         Preconditions.checkNotNull(entity);
-       // getCurrentSession().persist(entity);
-//         getCurrentSession().getTransaction().commit();
         getCurrentSession().saveOrUpdate(entity);
     }
 
