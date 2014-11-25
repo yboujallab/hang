@@ -17,6 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
+
+import com.ma.hang.core.util.ExtendedEmailValidator;
 
 
 
@@ -36,6 +41,7 @@ public class User implements Serializable {
 	private int idUser;
 
 	@NotNull
+	@ExtendedEmailValidator
 	@Column(name="email",unique=true)
 	private String email;
 

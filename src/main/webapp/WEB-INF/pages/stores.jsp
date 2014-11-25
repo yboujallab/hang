@@ -17,7 +17,9 @@
 					<li><a href="#">Remove store</a></li>
 					<li><a href="#">Update store</a></li>
 					<li><a href="#">Delete store</a></li>
-					<li>${listStore}</li>
+	   				<c:forEach var="store" items="${listStore}">
+     						 <option>${store.storeName}<option/>
+   					</c:forEach>
 				</ul>
 			</div>
 		</div>

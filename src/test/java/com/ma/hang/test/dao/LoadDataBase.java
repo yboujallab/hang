@@ -3,11 +3,11 @@ package com.ma.hang.test.dao;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.HibernateException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ma.hang.core.dao.IProfilDao;
 import com.ma.hang.core.dao.IStoreDao;
@@ -16,6 +16,9 @@ import com.ma.hang.core.dto.UserDto;
 import com.ma.hang.core.entities.Profil;
 import com.ma.hang.core.entities.Store;
 import com.ma.hang.core.exception.HangTechnicalException;
+import com.ma.hang.core.service.IProfilService;
+import com.ma.hang.core.service.IStoreService;
+import com.ma.hang.core.service.IUserService;
 
 public class LoadDataBase {
 
@@ -24,22 +27,24 @@ public static void main(String[] args) throws HangTechnicalException {
 	
 	
     ApplicationContext context = new ClassPathXmlApplicationContext("load-data-context.xml");
-    IUserDao userdao = (IUserDao) context.getBean("userDao");
-    IProfilDao profildao = (IProfilDao) context.getBean("profilDao");
-    IStoreDao storeDao = (IStoreDao) context.getBean("storeDao");
+    IUserService usersrv = (IUserService) context.getBean("userService");
+    IProfilService profilsrv = (IProfilService) context.getBean("profilService");
+    IStoreService storesrv = (IStoreService) context.getBean("storeService");
     LoadDataBase load = new LoadDataBase();
+    //load.insertProfils(profildao);
     //load.createUser(userdao, profildao);
-    load.createStoresDaoTest(userdao, storeDao);
+    load.createStoresDaoTest(usersrv, storesrv);
 }
 	
-	public void insertProfils(IProfilDao profilDao ){
+
+	public void insertProfils(IProfilService profilSrv ){
 		Profil profil = null;
 		try {
 			//insert profils
 				profil = new Profil();
-				profil.setProfilDescription("profil of administrataion");
-				profil.setProfilName("administrator");
-				profilDao.create(profil);
+				profil.setProfilDescription("profil of lector");
+				profil.setProfilName("lector");
+				profilSrv.create(profil);
 
 		} catch (final HibernateException he) {
 			he.printStackTrace();
@@ -56,9 +61,9 @@ public static void main(String[] args) throws HangTechnicalException {
 		String email;
 		try {
 			//insert users
-				password = new String("Password");
+				password = new String("PasswordTest");
 				user = new UserDto();
-				email = new String("emailtest@example.com");
+				email = new String("lector@example.com");
 				user.setEmail(email);
 				user.setFirstname("firstname");
 				user.setModificationDate(now);
@@ -78,8 +83,7 @@ public static void main(String[] args) throws HangTechnicalException {
 	/**
 	 * @throws HangTechnicalException
 	 */
-	@Transactional
-	public void createStoresDaoTest(IUserDao userDao, IStoreDao storeDao) throws HangTechnicalException {
+	public void createStoresDaoTest(IUserService userService, IStoreService storeService) throws HangTechnicalException {
 		Store store = null;
 		Date now = Calendar.getInstance().getTime();
 		//User user = createUser("email@example.com");
@@ -97,8 +101,8 @@ public static void main(String[] args) throws HangTechnicalException {
 				store.setStoreDescription("store of new things and exciting things "+i);
 				store.setStoreName("cool store"+i);
 				store.setSurface(Long.valueOf("200"));
-				store.setUser(userDao.findAll().get(0));
-				storeDao.create(store);
+				store.setUser(userService.findAll().get(0));
+				storeService.create(store);
 			}
 
 		}catch (Exception e) {

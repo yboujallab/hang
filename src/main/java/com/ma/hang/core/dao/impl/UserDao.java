@@ -106,5 +106,6 @@ public class UserDao extends AbstractDao<User> implements IUserDao {
 //		userToAdd.set
 		userToAdd.setProfil(userDto.getProfil());
 		getCurrentSession().saveOrUpdate(userToAdd);
+		logger.info("");
 	}
 }

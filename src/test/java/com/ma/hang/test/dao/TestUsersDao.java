@@ -116,7 +116,7 @@ public class TestUsersDao {
 			}
 			//Check insertion 
 			List<User> listUsers = this.userDao.findAll();
-			assertThat(10, equalTo(listUsers.size()));
+			assertThat(listUsers.size(), equalTo(10));
 
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -156,13 +156,53 @@ public class TestUsersDao {
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
-				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+				assertThat(msgTemplate, equalTo("{javax.validation.constraints.NotNull.message}"));
 		} catch (HangTechnicalException e) {
 			// TODO Auto-generated catch block
 			fail();
 		} 
 	}
-
+	/**
+	 * test create user with a wrong email
+	 * @throws HangTechnicalException 
+	 */
+	@Test
+	public void createUsersTestKo_emailKo() throws HangTechnicalException {
+		UserDto user = null;
+		Date now = Calendar.getInstance().getTime();
+		String password;
+		List<Profil> listProfils = profilDao.findAll();
+		try {
+		//insert users
+			password = new String("Password");
+			user = new UserDto();
+			user.setFirstname("firstname");
+			user.setModificationDate(now);
+			user.setCreationDate(now);
+			user.setUserLastname("lastname");
+			user.setProfil(listProfils.get(0));
+			user.setPassword(password);
+			user.setEmail("email");
+			userDao.createUser(user);
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+			if (violations.size() !=2)
+				fail();
+			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
+			ConstraintViolation<?> violationInError = null;
+			String msgTemplate = null;
+			while(iter.hasNext()){
+				violationInError = iter.next();
+				msgTemplate = violationInError.getMessageTemplate();
+				if(msgTemplate.contains("Please provide"))
+					assertThat(msgTemplate, equalTo("Please provide a valid email address"));
+				else
+					assertThat(msgTemplate,equalTo("{javax.validation.constraints.Pattern.message}"));
+					
+			}
+		}
+	}
 	/**
 	 * test create user with a null profil
 	 */
@@ -180,7 +220,7 @@ public class TestUsersDao {
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setUserLastname("lastname");
-				user.setEmail("email");
+				user.setEmail("email@example.com");
 				user.setPassword(password);
 				userDao.createUser(user);
 				fail();
@@ -192,7 +232,7 @@ public class TestUsersDao {
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
-				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+				assertThat(msgTemplate, equalTo("{javax.validation.constraints.NotNull.message}"));
 		} catch (HangTechnicalException e) {
 			// TODO Auto-generated catch block
 			fail();
@@ -216,7 +256,7 @@ public class TestUsersDao {
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setUserLastname("lastname");
-				user.setEmail("email");
+				user.setEmail("email@example.com");
 				user.setPassword(password);
 				userDao.createUser(user);
 				fail();
@@ -228,7 +268,7 @@ public class TestUsersDao {
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
-				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+				assertThat(msgTemplate, equalTo("{javax.validation.constraints.NotNull.message}"));
 		} catch (HangTechnicalException e) {
 			// TODO Auto-generated catch block
 			fail();
@@ -252,7 +292,7 @@ public class TestUsersDao {
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setFirstname("firstname");
-				user.setEmail("email");
+				user.setEmail("email@example.com");
 				user.setPassword(password);
 				userDao.createUser(user);
 				fail();
@@ -264,7 +304,7 @@ public class TestUsersDao {
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
-				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+				assertThat(msgTemplate, equalTo("{javax.validation.constraints.NotNull.message}"));
 		} catch (HangTechnicalException e) {
 			// TODO Auto-generated catch block
 			fail();
@@ -298,10 +338,10 @@ public class TestUsersDao {
 			Iterator<ConstraintViolation<?>> iter =  violations.iterator();
 			ConstraintViolation<?> violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
-				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+				assertThat(msgTemplate, equalTo("{javax.validation.constraints.NotNull.message}"));
 		} catch (HangTechnicalException e) {
 			// TODO Auto-generated catch block
-			assertThat("Error while encryption password", equalTo(e.getMessage()));
+			assertThat(e.getMessage(), equalTo("Error while encryption password"));
 			assertTrue(e.getCause() instanceof NullPointerException);
 		} 
 	}		
@@ -331,7 +371,7 @@ public class TestUsersDao {
 			while (iter.hasNext()){
 				violationInError = iter.next();
 				String msgTemplate = violationInError.getMessageTemplate();
-				assertThat("{javax.validation.constraints.NotNull.message}", equalTo(msgTemplate));
+				assertThat(msgTemplate, equalTo("{javax.validation.constraints.NotNull.message}"));
 			}
 		} catch (HangTechnicalException e) {
 			// TODO Auto-generated catch block

@@ -190,7 +190,7 @@ public class TestUserService {
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setUserLastname("lastname");
-				user.setEmail("email");
+				user.setEmail("email@exaemple.com");
 				user.setPassword(password);
 				userService.createUser(user);
 				fail();
@@ -226,7 +226,7 @@ public class TestUserService {
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setUserLastname("lastname");
-				user.setEmail("email");
+				user.setEmail("email@example.com");
 				user.setPassword(password);
 				userService.createUser(user);
 				fail();
@@ -261,7 +261,7 @@ public class TestUserService {
 				user.setModificationDate(now);
 				user.setCreationDate(now);
 				user.setFirstname("firstname");
-				user.setEmail("email");
+				user.setEmail("email@example.com");
 				user.setPassword(password);
 				userService.createUser(user);
 				fail();
