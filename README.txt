@@ -1,0 +1,1 @@
+Hang is a plat form which allowed to users to manage their stores.
