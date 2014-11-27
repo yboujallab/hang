@@ -11,9 +11,10 @@
 		<%@ include file="menus/left-menu.html"%>
 		<div class="col-sm-9">
 			<div class="container">
+			<div>
 			   <ul>
 					<li><a href="#">Search stores</a></li>
-					<li><a href="#">New store</a></li>
+					<li><a href="#" onClick="toggle('addForm')">New store</a></li>
 					<li><a href="#">Remove store</a></li>
 					<li><a href="#">Update store</a></li>
 					<li><a href="#">Delete store</a></li>
@@ -21,8 +22,79 @@
      						 <option>${store.storeName}<option/>
    					</c:forEach>
 				</ul>
+				</div>
+				<!-- Form stores  -->
+				<div id="addForm" style="visibility:hidden;">
+				   <ul>
+   					<form:form method="post" action="stores/save" modelAttribute="storeForm"> 
+					    <table>
+					    <tr>
+					        <td><form:label path="storeName">Store Name</form:label></td>
+					        <td><form:input path="storeName" /></td>
+					    </tr>
+					    <tr>
+					        <td><form:label path="storeDescription">Store Description</form:label></td>
+					        <td><form:input path="storeDescription" /></td>
+					    </tr>
+					    <tr>
+					        <td><form:label path="storeAddressFirstLine">Store Address First Line</form:label></td>
+					        <td><form:input path="storeAddressFirstLine" /></td>
+					    </tr>
+					    <tr>
+					        <td><form:label path="storeAddressSecondLine">Store Address Second Line</form:label></td>
+					        <td><form:input path="storeAddressSecondLine" /></td>
+					    </tr>
+					    <tr>
+					        <td><form:label path="surface">Surface</form:label></td>
+					        <td><form:input path="surface" /></td>
+					    </tr>					    
+					    <tr>
+					        <td><form:label path="country">Country</form:label></td>
+					        <td><form:input path="country" /></td>
+					    </tr>
+					    <tr>
+					        <td><form:label path="city">City</form:label></td>
+					        <td><form:input path="city" /></td>
+					    </tr>
+					   <tr>
+					        <td><form:label path="postCode">PostCode</form:label></td>
+					        <td><form:input path="postCode" /></td>
+					    </tr>
+					    <tr>
+					        <td colspan="2">
+					            <input type="submit" value="Add store"/>
+					        </td>
+					    </tr>
+					</table> 
+				</form:form>
+  				   </ul>
+				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+
+/** Fonction basculant la visibilité d'un élément dom
+* @parameter anId string l'identificateur de la cible à montrer, cacher
+*/
+function toggle(anId)
+{
+	node = document.getElementById(anId);
+	if (node.style.visibility=="hidden")
+	{
+		node.style.visibility = "visible";
+		node.style.height = "auto";			// Optionnel rétablir la hauteur
+	}
+	else
+	{
+		// Contenu visible, le cacher
+		node.style.visibility = "none";
+		node.style.height = "0";			// Optionnel libérer l'espace
+	}
+}
+
+</script>
+
+
 </html>
