@@ -17,9 +17,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.ma.hang.core.util.ExtendedEmailValidator;
 
@@ -46,10 +46,14 @@ public class User implements Serializable {
 	private String email;
 
 	@NotNull
+	@NotBlank
+	@NotEmpty
 	@Column(name="firstname")
 	private String firstname;
 
 	@NotNull
+	@NotBlank
+	@NotEmpty
 	@Column(name="lastname")
 	private String userLastname;
 
@@ -62,17 +66,26 @@ public class User implements Serializable {
 	private Date creationDate;
 	
 	@NotNull
+	@NotBlank
+	@NotEmpty
 	@Column(name="encrypted_password")
 	private String encryptedPassword;
 
 	@Column(name="salt")
 	private String salt;
-
+	
+	@NotNull
 	@Column(name="active")	
 	private boolean isActivated;
 
+	@NotNull
 	@Column(name="locked")	
 	private boolean islocked;
+	
+	@NotNull
+	@Column(name="expired")	
+	private boolean expired;
+	
 	
 	//bi-directional many-to-one association to Profil
 	@NotNull
@@ -280,6 +293,18 @@ public class User implements Serializable {
 		store.setUser(null);
 
 		return store;
+	}
+
+	public boolean getIsExpired() {
+		return expired;
+	}
+
+	public void setExpired(boolean expired) {
+		this.expired = expired;
+	}
+
+	public void setActivated(boolean isActivated) {
+		this.isActivated = isActivated;
 	}
 	
 }

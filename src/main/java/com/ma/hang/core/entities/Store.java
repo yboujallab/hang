@@ -14,6 +14,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * The persistent class for the stores database table.
@@ -30,33 +34,49 @@ public class Store implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_store", unique = true, nullable = false)
 	private int idStore;
-
+	
+	@NotNull
 	@Column(name = "name")
 	private String storeName;
 	
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	@Column(name = "description")
 	private String storeDescription;
 	
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	@Column(name = "address_line_1")
 	private String storeAddressFirstLine;
 
 	@Column(name = "address_line_2")
 	private String storeAddressSecondLine;
-
+	
+	@NotNull
 	@Column(name = "surface")
 	private long surface;
 	
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "modified_at")
 	private Date modifiedAt;
 
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at")
 	private Date createdAt;
-
+	
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	@Column(name = "country")
 	private String country;
 	
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	@Column(name = "city")
 	private String city;
 	
@@ -65,6 +85,7 @@ public class Store implements Serializable {
 	
 	
 	// bi-directional many-to-one association to Profil
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_user")
 	private User user;

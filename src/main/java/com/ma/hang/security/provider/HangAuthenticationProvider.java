@@ -50,7 +50,8 @@ public class HangAuthenticationProvider implements AuthenticationProvider {
 	        if (user != null) {
 	            final List<GrantedAuthority> grantedAuths = new ArrayList<>();
 	            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-	            final UserDetails principal = new User(email, submittedPassword, grantedAuths);
+//	            final UserDetails principal = new User(email, submittedPassword, grantedAuths);
+	            final UserDetails principal = new User(email, submittedPassword, false, false, false, false, grantedAuths);
 	            final Authentication auth = new UsernamePasswordAuthenticationToken(principal, submittedPassword, grantedAuths);
 	            return auth;
 	        } else {
