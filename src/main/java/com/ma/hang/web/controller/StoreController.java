@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ma.hang.core.entities.Store;
@@ -44,7 +45,7 @@ public class StoreController {
 		ModelAndView model = new ModelAndView();
 		List<Store> listStore = storeService.findAll();
 		model.addObject("listStore",listStore);
-		model.setViewName("stores");
+		model.setViewName("stores/stores");
 		model.addObject("visibilityAddForm", "hidden");
 		model.addObject("storeForm", new StoreForm()); // the Category object is used as a template to generate the form
 		return model;
@@ -58,12 +59,23 @@ public class StoreController {
 		ModelAndView model = new ModelAndView();
 		List<Store> listStore = storeService.findAll();
 		model.addObject("listStore",listStore);
-		model.setViewName("stores");
+		model.setViewName("stores/stores");
 		model.addObject("storeForm", new StoreForm()); // the Category object is used as a template to generate the form
 
 		return model;
 	}
 	
+	/**
+	 * @return stores page
+	 */
+	@RequestMapping(value ="/findAll", method = RequestMethod.GET)
+	public ModelAndView findAllStore() {
+		ModelAndView model = new ModelAndView();
+		List<Store> listStore = storeService.findAll();
+		model.addObject("listStore",listStore);
+		model.setViewName("stores/search");
+		return model;
+	}
 	
 	 /**
 	 * @param storeForm
@@ -90,7 +102,20 @@ public class StoreController {
 	    return new ModelAndView("stores/show_store");
 	    }
 	
-	
+	/**
+	 * @return stores page
+	 */
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView showStore(@RequestParam("idStore") int idStore) {
+		Store storeDetails = storeService.findOne(idStore);		
+		ModelAndView model = new ModelAndView();
+		if (storeDetails != null){
+			model.addObject("storeDetails",storeDetails);
+		}
+		model.setViewName("stores/show_store");
+	    return model;
+
+	}
 	
 	
 	

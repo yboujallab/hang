@@ -1,20 +1,23 @@
-<%@ include file="layouts/_header.jsp"%>
+<%@ include file="../layouts/_header.jsp"%>
 <html>
 <head>
 <link href="<c:url value="/resources/css/custom.css" />"
 	rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Suppliers</title>
+<title>Stores</title>
 </head>
 <body>
 	<div class="jumbotron">
-		<%@ include file="menus/left-menu.html"%>
+		<%@ include file="../menus/left-menu.html"%>
 		<div class="col-sm-9">
 			<div class="container">
 				<div>
 					<ul>
 						<li><a href="#" onClick="toggle('searchForm');">Search
 								stores</a></li>
+						<li><a href="<c:url value='stores/findAll' />">Search
+								stores</a></li>
+								
 						<li><a href="#"
 							onClick="toggle('addForm');toggle('searchForm')">New store</a></li>
 						<li><a href="#">Remove store</a></li>
@@ -28,40 +31,51 @@
 						<form:form method="post" action="stores/save"
 							modelAttribute="storeForm">
 							<table>
+								<tr><td>&nbsp;</td></tr>
 								<tr>
-									<td><form:label path="storeName">Store Name</form:label></td>
+									<td><form:label path="storeName">Store Name : </form:label></td>
 									<td><form:input path="storeName" /></td>
 								</tr>
+								<tr><td>&nbsp;</td></tr>
 								<tr>
-									<td><form:label path="storeDescription">Store Description</form:label></td>
-									<td><form:input path="storeDescription" /></td>
+									<td><form:label path="storeDescription">Store Description : </form:label></td>
+									<td><form:textarea path="storeDescription" /></td>
 								</tr>
+								<tr><td>&nbsp;</td></tr>
 								<tr>
-									<td><form:label path="storeAddressFirstLine">Store Address First Line</form:label></td>
-									<td><form:input path="storeAddressFirstLine" /></td>
-								</tr>
-								<tr>
-									<td><form:label path="storeAddressSecondLine">Store Address Second Line</form:label></td>
-									<td><form:input path="storeAddressSecondLine" /></td>
-								</tr>
-								<tr>
-									<td><form:label path="surface">Surface</form:label></td>
+									<td><form:label path="surface">Surface : </form:label></td>
 									<td><form:input path="surface" /></td>
 								</tr>
+								<tr><td>&nbsp;</td></tr>
 								<tr>
-									<td><form:label path="country">Country</form:label></td>
+									<td><form:label path="storeAddressFirstLine">Store Address First Line : </form:label></td>
+									<td><form:textarea path="storeAddressFirstLine" /></td>
+								</tr>
+								<tr><td>&nbsp;</td></tr>
+								<tr>
+									<td><form:label path="storeAddressSecondLine">Store Address Second Line : </form:label></td>
+									<td><form:textarea path="storeAddressSecondLine" /></td>
+								</tr>
+								<tr><td>&nbsp;</td></tr>
+								<tr>
+									<td><form:label path="country">Country : </form:label></td>
 									<td><form:input path="country" /></td>
 								</tr>
+								<tr><td>&nbsp;</td></tr>
 								<tr>
-									<td><form:label path="city">City</form:label></td>
+									<td><form:label path="city">City : </form:label></td>
 									<td><form:input path="city" /></td>
 								</tr>
+								<tr><td>&nbsp;</td></tr>
 								<tr>
-									<td><form:label path="postCode">PostCode</form:label></td>
+									<td><form:label path="postCode">Post Code : </form:label></td>
 									<td><form:input path="postCode" /></td>
 								</tr>
+								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td colspan="2"><input type="submit" value="Add store" />
+									</td>
+									<td colspan="2"><input type="reset" value="Reset" />
 									</td>
 								</tr>
 							</table>
@@ -114,6 +128,12 @@
 							<td>
 								<option>${store.modifiedAt}<option />
 							</td>
+							<td>
+								<a href="<c:url value='stores/show?idStore=${store.idStore}' />">Show</a>
+							</td>
+							<td>
+								<a href="#">Delete</a>
+							</td>														
 							</tr>																																																														
 						</c:forEach>
 					</table>
