@@ -33,6 +33,6 @@ public class URLRestConstants {
 	 */
 	public static final String url_store_create = "/store/${id}";
 	
-
+	public static final String url_supplier_root="/suppliers";
 	
 }

@@ -1,6 +1,8 @@
 <c:set var="req" value="${pageContext.request}" />
-<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+<c:set var="baseURL"
+	value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
 <div class="row">
+
 	<div class="col-sm-3">
 		<div class="sidebar-nav">
 			<div class="navbar navbar-default" role="navigation">
@@ -15,14 +17,18 @@
 				</div>
 				<div class="navbar-collapse collapse sidebar-navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="${baseURL}/stores">Manage Stores</a></li>
-						<li><a href="<c:url value='suppliers' />">Manage
-								Suppliers</a></li>
+						<li class="active"><a href="${baseURL}/stores">Manage
+								Stores</a></li>
+						<li><a href="${baseURL}/suppliers">Manage Suppliers</a></li>
 						<li><a href="/arrivals">Manage Arrivals</a></li>
 						<li><a href="/exits">Manage Exits</a></li>
 					</ul>
 				</div>
+
 				<!--/.nav-collapse -->
 			</div>
+
 		</div>
-</div>
+
+	</div>
+	
