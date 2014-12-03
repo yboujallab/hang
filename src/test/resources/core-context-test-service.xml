@@ -10,5 +10,7 @@
 
 	<bean id="profilService" class="com.ma.hang.core.service.impl.ProfilService" scope="singleton"/>
 	<bean id="userService" class="com.ma.hang.core.service.impl.UserService" scope="singleton"/>
+	<bean id="supplierService" class="com.ma.hang.core.service.impl.SupplierService" scope="singleton"/>
+	
 
 </beans>
