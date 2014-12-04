@@ -13,48 +13,48 @@
 			<div class="container">
 				<!-- Form stores  -->
 				<div id="store-form">
-					<form:form method="PUT" action="${baseURL}/stores/update"
+					<form:form method="post" action="stores/update"
 							modelAttribute="storeForm">
 							<table>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="storeName">Store Name : </form:label></td>
-									<td  width="80%" style="color:black"><form:input class="form-control" path="storeName" style="color:black" id="storeName" type="text"  value="${storeDetails.storeName}" disabled="true"/></td>
+									<td  width="80%" style="color:black"><form:input class="form-control" path="storeName" style="color:black" id="storeName" type="text" disabled="disabled" value="${storeDetails.storeName}" /></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="storeDescription">Store Description : </form:label></td>
-									<td style="color:black"><form:textarea path="storeDescription" class="form-control"  style="color:black" id="storeDescription"  value="${storeDetails.storeDescription}" disabled="true"/></td>
+									<td style="color:black"><form:textarea path="storeDescription" class="form-control"  id="storeDescription"  disabled="disabled" value="${storeDetails.storeDescription}"/></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="surface">Surface : </form:label></td>
-									<td style="color:black"><form:input path="surface" class="form-control"  id="surface" style="color:black" type="text"   value="${storeDetails.surface}" disabled="true"/></td>
+									<td style="color:black"><form:input path="surface" class="form-control"  id="surface"  type="text"  disabled="disabled" value="${storeDetails.surface}"/></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="storeAddressFirstLine">Store Address First Line : </form:label></td>
-									<td style="color:black"><form:textarea path="storeAddressFirstLine" class="form-control"  style="color:black" id="storeAddressFirstLine"  value="${storeDetails.storeAddressFirstLine}" disabled="true"/></td>
+									<td style="color:black"><form:textarea path="storeAddressFirstLine" class="form-control"  id="storeAddressFirstLine" disabled="disabled" value="${storeDetails.storeAddressFirstLine}"/></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="storeAddressSecondLine">Store Address Second Line : </form:label></td>
-									<td style="color:black"><form:textarea path="storeAddressSecondLine" class="form-control" style="color:black"  id="storeAddressSecondLine"   value="${storeDetails.storeAddressSecondLine}" disabled="true"/></td>
+									<td style="color:black"><form:textarea path="storeAddressSecondLine" class="form-control"  id="storeAddressSecondLine"  disabled="disabled" value="${storeDetails.storeAddressSecondLine}"/></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="country">Country : </form:label></td>
-									<td style="color:black"><form:input path="country" class="form-control"  id="country" style="color:black"  type="text"   value="${storeDetails.country}" disabled="true"/></td>
+									<td style="color:black"><form:input path="country" class="form-control"  id="country"  type="text"  disabled="disabled" value="${storeDetails.country}"/></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="city">City : </form:label></td>
-									<td style="color:black"><form:input path="city" class="form-control"  id="city" type="text" style="color:black"  value="${storeDetails.city}" disabled="true"/></td>
+									<td style="color:black"><form:input path="city" class="form-control"  id="city" type="text"  disabled="disabled" value="${storeDetails.city}"/></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td><form:label path="postCode">Post Code : </form:label></td>
-									<td style="color:black"><form:input path="postCode" class="form-control"  id="postCode" type="text" style="color:black"  value="${storeDetails.postCode}" disabled="true"/></td>
+									<td style="color:black"><form:input path="postCode" class="form-control"  id="postCode" type="text"  disabled="disabled" value="${storeDetails.postCode}"/></td>
 								</tr>
 								<tr><td>&nbsp;</td></tr>
 								<tr>
@@ -68,7 +68,7 @@
 								</tr>															
 								<tr><td>&nbsp;</td></tr>
 								<tr>
-								<td colspan="2"><button id="update"  class="btn btn-primary" type="button" onclick="changeForm()" style="display:block;">Update</button></td>
+								<td colspan="2"><button id="update"  class="btn btn-primary" type="submit" onclick="changeForm()" style="display:block;">Update</button></td>
  								</tr>
 								<tr>
 								<td colspan="2"><button id="save" class="btn btn-primary" type="submit" value="Save" onclick="changeForm()" style="display:none;">Save</button>
@@ -76,7 +76,6 @@
 								<td colspan="2"><button id="back" class="btn btn-primary" type="submit" value="Back"  onclick="changeForm()" style="display:none;">Back</button>
 									</td>
 								</tr>
-								<form:input path="idStore" type="hidden"  value="${storeDetails.idStore}"/>
 							</table>
 						</form:form>	
 				</div>

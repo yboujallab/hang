@@ -80,6 +80,7 @@ public class StoreController {
 	 /**
 	 * @param storeForm
 	 * @param result
+	 * @param principal 
 	 * @return model end view
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -103,6 +104,7 @@ public class StoreController {
 	    }
 	
 	/**
+	 * @param idStore 
 	 * @return stores page
 	 */
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
@@ -118,6 +120,30 @@ public class StoreController {
 
 	}
 	
+	/**
+	 * @param storeForm 
+	 * @return stores page update
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	public ModelAndView updateStore(@ModelAttribute("storeForm") StoreForm storeForm) {
+		Store storeToUpdate = storeService.findOne(storeForm.getIdStore());	
+		Date now = Calendar.getInstance().getTime();
+		storeToUpdate.setCity(storeForm.getCity());
+		storeToUpdate.setCountry(storeForm.getCountry());
+		storeToUpdate.setModifiedAt(now);
+		storeToUpdate.setPostCode(storeForm.getPostCode());
+		storeToUpdate.setStoreAddressFirstLine(storeForm.getStoreAddressFirstLine());
+		storeToUpdate.setStoreAddressSecondLine(storeForm.getStoreAddressSecondLine());
+		storeToUpdate.setStoreDescription(storeForm.getStoreDescription());
+		storeToUpdate.setStoreName(storeForm.getStoreName());
+		storeToUpdate.setSurface(storeForm.getSurface());
+		storeService.create(storeToUpdate);
+		ModelAndView model = new ModelAndView();
+		model.addObject("storeDetails",storeToUpdate);
+		model.addObject("storeForm", new StoreForm());
+		model.setViewName("stores/show_store");
+	    return model;
+	}
 	
 	
 	

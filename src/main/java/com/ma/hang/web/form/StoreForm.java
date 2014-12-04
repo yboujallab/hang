@@ -10,6 +10,8 @@ public class StoreForm {
 
 private String storeName;
 	
+	private int idStore;
+
 	private String storeDescription;
 	
 	private String storeAddressFirstLine;
@@ -28,6 +30,21 @@ private String storeName;
 	
 	private Integer postCode;
 	
+	
+
+	/**
+	 * @return id strore
+	 */
+	public int getIdStore() {
+		return idStore;
+	}
+
+	/**
+	 * @param idStore
+	 */
+	public void setIdStore(int idStore) {
+		this.idStore = idStore;
+	}
 
 	/**
 	 * @return store name
