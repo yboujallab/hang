@@ -112,6 +112,7 @@ public class StoreController {
 		if (storeDetails != null){
 			model.addObject("storeDetails",storeDetails);
 		}
+		model.addObject("storeForm", new StoreForm());
 		model.setViewName("stores/show_store");
 	    return model;
 

@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -40,28 +40,68 @@ public class HangAuthenticationProvider implements AuthenticationProvider {
 	    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
 	        final String email = authentication.getName();
 	        final String submittedPassword = authentication.getCredentials().toString();
+	        
+			if (email.trim().equals("") || email == null) {
+				//Error no login typed
+				throw new BadCredentialsException("Invalid username" );
+			}
+	 
+			if (submittedPassword.equals("") || submittedPassword == null) {
+				//Error no login typed
+				throw new BadCredentialsException("Invalid Password" );
+			}
+			
 	        com.ma.hang.core.entities.User user=null;
 			try {
-				user = userService.authenticate(email, submittedPassword);
+				user = userService.authenticate(email.trim(), submittedPassword);
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	        if (user != null) {
-	            final List<GrantedAuthority> grantedAuths = new ArrayList<>();
-	            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-//	            final UserDetails principal = new User(email, submittedPassword, grantedAuths);
-	            final UserDetails principal = new User(email, submittedPassword, false, false, false, false, grantedAuths);
-	            final Authentication auth = new UsernamePasswordAuthenticationToken(principal, submittedPassword, grantedAuths);
+		        final Integer profilId = user.getProfil().getIdProfil();
+		        final List<GrantedAuthority> authorithies = new ArrayList<GrantedAuthority>();
+		        GrantedAuthority ga =  getAuthority(profilId);
+		        authorithies.add(ga);
+	            final UserDetails principal = new User(email, submittedPassword, false, false, false, false, authorithies);
+	            final Authentication auth = new UsernamePasswordAuthenticationToken(principal, submittedPassword, authorithies);
 	            return auth;
 	        } else {
 	            return null;
 	        }
 	    }
-
 	    @Override
 	    public boolean supports(final Class<?> authentication) {
 	        return authentication.equals(UsernamePasswordAuthenticationToken.class);
 	    }
+	    /**
+	     * @param profilId
+	     * @return GrantedAuthority
+	     */
+	    public GrantedAuthority getAuthority(Integer profilId){
+	    	
+	        final GrantedAuthority auth = new GrantedAuthority() {
+				/**
+				 * 
+				 */
 
+				public String getAuthority() {
+					switch (profilId){
+						case 1:
+							return Constants.ADMIN_ROLE;
+						
+						case 2:
+							return Constants.USER_ROLE;
+						
+						default:
+							return Constants.ERROR;
+					}
+					
+				}        		
+			};
+			return auth;
+	    }
+	    
+	    
 }

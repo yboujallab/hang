@@ -69,8 +69,6 @@
 								</td>
 								<td>
 								<a href="${baseURL}/stores/show?idStore=${store.idStore}">Show</a>
-								<a
-									href="<c:url value='stores/show?idStore=${store.idStore}' />">Show</a>
 								</td>
 								<td><a href="#">Delete</a></td>
 							</tr>

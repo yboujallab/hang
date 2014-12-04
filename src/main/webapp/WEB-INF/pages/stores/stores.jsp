@@ -13,8 +13,6 @@
 			<div class="container">
 				<div>
 					<ul>
-						<li><a href="#" onClick="toggle('searchForm');">Search
-								stores</a></li>
 						<li><a href="<c:url value='stores/findAll' />">Search
 								stores</a></li>
 								
