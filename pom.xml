@@ -24,7 +24,7 @@
 		<mysql-connector-java.version>5.1.30</mysql-connector-java.version>
 		<tomcat-dbcp.version>8.0.15</tomcat-dbcp.version>
 		<javassist.version>3.18.1-GA</javassist.version>
-		<!-- logback  -->
+		<!-- logback -->
 		<logback.version>1.1.2</logback.version>
 		<!-- util -->
 		<guava.version>17.0</guava.version>
@@ -131,7 +131,7 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
-		
+
 		<!-- jstl for jsp page -->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -173,7 +173,17 @@
 		</dependency>
 
 		<!-- utils -->
-
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>3.0-alpha-1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>

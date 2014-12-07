@@ -8,19 +8,18 @@
 	</encoder>
  </appender>
  
- <appender name="FILE"
-	class="ch.qos.logback.core.rolling.RollingFileAppender">
+ <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 	<file>${catalina.base}/logs/hangapp.log</file>
 	<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 	   <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %replace(%msg){"pswd='.*'", "pswd='xxx'"}%n"
            </Pattern>
 	</encoder>
  
-<!-- 	<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+ 	<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 		<FileNamePattern>${catalina.base}/logs/hangapp.%i.log.zip</FileNamePattern>
 		<MinIndex>1</MinIndex>
 		<MaxIndex>10</MaxIndex>
-	</rollingPolicy> -->
+	</rollingPolicy> 
  
 	<triggeringPolicy
 		class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">

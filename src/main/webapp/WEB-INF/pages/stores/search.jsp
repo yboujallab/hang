@@ -70,7 +70,7 @@
 								<td>
 								<a href="${baseURL}/stores/show?idStore=${store.idStore}">Show</a>
 								</td>
-								<td><a href="#">Delete</a></td>
+								<td><a href="${baseURL}/stores/delete?idStore=${store.idStore}">Delete</a></td>
 							</tr>
 						</c:forEach>
 					</table>

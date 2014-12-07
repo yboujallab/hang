@@ -13,7 +13,7 @@
 			<div class="container">
 				<!-- Form stores   <%-- action="${baseURL}/stores/update" --%>-->
 				<div id="updateStoreForm">
-					<form:form method="GET" action="${baseURL}/stores/update?idStore=${storeForm.idStore}"   
+					<form:form method="POST" action="/update_store.jsp"   
 							modelAttribute="storeForm">
 							<table>
 								<tr><td>&nbsp;</td></tr>
@@ -68,8 +68,14 @@
 								</tr>															
 								<tr><td>&nbsp;</td></tr>
 								<tr>
-								<td colspan="2"><button id="update"  class="btn btn-primary" type="submit"  style="display:block;">Update</button></td>
+								<td colspan="2"><button id="update"  class="btn btn-primary" type="button" onclick="changeForm()" style="display:block;">Update</button></td>
  								</tr>
+								<tr>
+								<td colspan="2"><button id="save" class="btn btn-primary" type="submit" value="Save" onclick="changeForm()" style="display:none;">Save</button>
+									</td>
+								<td colspan="2"><button id="back" class="btn btn-primary" type="submit" value="Back"  onclick="changeForm()" style="display:none;">Back</button>
+									</td>
+								</tr>
 								<form:input path="idStore" type="hidden"  value="${storeForm.idStore}"/>
 							</table>
 						</form:form>	

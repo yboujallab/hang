@@ -4,10 +4,17 @@ import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +43,15 @@ public class StoreController {
 	@Autowired
 	private IUserService userService;
 	
+    @Autowired
+    @Qualifier("storeValidator")
+    private Validator validator;
 	  
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(validator);
+    }
+    
 	/**
 	 * @return stores page
 	 */
@@ -60,7 +75,7 @@ public class StoreController {
 		List<Store> listStore = storeService.findAll();
 		model.addObject("listStore",listStore);
 		model.setViewName("stores/stores");
-		model.addObject("storeForm", new StoreForm()); // the Category object is used as a template to generate the form
+		model.addObject("storeForm", new StoreForm()); 
 
 		return model;
 	}
@@ -76,6 +91,23 @@ public class StoreController {
 		model.setViewName("stores/search");
 		return model;
 	}
+	/**
+	 * @return add page
+	 */
+/*	@RequestMapping(value ="/add", method = RequestMethod.GET)
+	public ModelAndView addStore() {
+		ModelAndView model = new ModelAndView();
+		model.addObject("storeForm", new StoreForm()); // the Category object is used as a template to generate the form
+		model.setViewName("stores/add_store");
+		return model;
+	}*/
+	
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String viewAdd(Map<String, Object> model) {
+		StoreForm storeForm = new StoreForm();
+		model.put("storeForm", storeForm);
+		return "stores/add_store";
+	}
 	
 	 /**
 	 * @param storeForm
@@ -83,9 +115,14 @@ public class StoreController {
 	 * @param principal 
 	 * @return model end view
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	    public ModelAndView save(@ModelAttribute("storeForm") StoreForm storeForm, BindingResult result, Principal principal) {
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String saveStore(@Validated @ModelAttribute("storeForm") StoreForm storeForm,
+			BindingResult result, Map<String, Object> model,Principal principal) {
 		Date now = Calendar.getInstance().getTime();
+		if (result.hasErrors()) {
+			return "stores/add_store";
+		}
 		Store storeToAdd = new Store();
 		storeToAdd.setCity(storeForm.getCity());
 		storeToAdd.setCountry(storeForm.getCountry());
@@ -100,7 +137,7 @@ public class StoreController {
 		com.ma.hang.core.entities.User currentUser = userService.findByEmail(principal.getName());
 		storeToAdd.setUser(currentUser);
 		storeService.create(storeToAdd);
-	    return new ModelAndView("stores/show_store");
+	    return "stores/show_store";	
 	    }
 	
 	/**
@@ -109,23 +146,60 @@ public class StoreController {
 	 */
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView showStore(@RequestParam("idStore") int idStore) {
-		Store storeDetails = storeService.findOne(idStore);		
+		Store storeDetails = storeService.findOne(idStore);	
+		StoreForm storeForm = new StoreForm();
+		storeForm.setIdStore(storeDetails.getIdStore());
+		storeForm.setCity(storeDetails.getCity());
+		storeForm.setCountry(storeDetails.getCountry());
+		storeForm.setModifiedAt(storeDetails.getModifiedAt());
+		storeForm.setPostCode(storeDetails.getPostCode());
+		storeForm.setStoreAddressFirstLine(storeDetails.getStoreAddressFirstLine());
+		storeForm.setStoreAddressSecondLine(storeDetails.getStoreAddressSecondLine());
+		storeForm.setStoreDescription(storeDetails.getStoreDescription());
+		storeForm.setStoreName(storeDetails.getStoreName());
+		storeForm.setSurface(storeDetails.getSurface());
+		storeForm.setCreatedAt(storeDetails.getCreatedAt());
 		ModelAndView model = new ModelAndView();
-		if (storeDetails != null){
-			model.addObject("storeDetails",storeDetails);
-		}
-		model.addObject("storeForm", new StoreForm());
+		model.addObject("storeForm", storeForm);
 		model.setViewName("stores/show_store");
 	    return model;
 
 	}
 	
 	/**
+	 * @param idStore 
+	 * @return stores page
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public ModelAndView updateStore(@RequestParam("idStore") int idStore) {
+		Store storeDetails = storeService.findOne(idStore);	
+		StoreForm storeForm = new StoreForm();
+		storeForm.setIdStore(storeDetails.getIdStore());
+		storeForm.setCity(storeDetails.getCity());
+		storeForm.setCountry(storeDetails.getCountry());
+		storeForm.setModifiedAt(storeDetails.getModifiedAt());
+		storeForm.setPostCode(storeDetails.getPostCode());
+		storeForm.setStoreAddressFirstLine(storeDetails.getStoreAddressFirstLine());
+		storeForm.setStoreAddressSecondLine(storeDetails.getStoreAddressSecondLine());
+		storeForm.setStoreDescription(storeDetails.getStoreDescription());
+		storeForm.setStoreName(storeDetails.getStoreName());
+		storeForm.setSurface(storeDetails.getSurface());
+		storeForm.setCreatedAt(storeDetails.getCreatedAt());
+		ModelAndView model = new ModelAndView();
+		model.addObject("storeForm", storeForm);
+		model.setViewName("stores/update_store");
+	    return model;
+
+	}
+	/**
 	 * @param storeForm 
 	 * @return stores page update
 	 */
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	public ModelAndView updateStore(@ModelAttribute("storeForm") StoreForm storeForm) {
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateStore(@Validated @ModelAttribute("storeForm") StoreForm storeForm,BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "stores/update_store";
+		}
 		Store storeToUpdate = storeService.findOne(storeForm.getIdStore());	
 		Date now = Calendar.getInstance().getTime();
 		storeToUpdate.setCity(storeForm.getCity());
@@ -138,45 +212,34 @@ public class StoreController {
 		storeToUpdate.setStoreName(storeForm.getStoreName());
 		storeToUpdate.setSurface(storeForm.getSurface());
 		storeService.create(storeToUpdate);
-		ModelAndView model = new ModelAndView();
-		model.addObject("storeDetails",storeToUpdate);
-		model.addObject("storeForm", new StoreForm());
-		model.setViewName("stores/show_store");
-	    return model;
+		StoreForm storeFormUpdated = new StoreForm();
+		storeFormUpdated.setIdStore(storeToUpdate.getIdStore());
+		storeFormUpdated.setCity(storeToUpdate.getCity());
+		storeFormUpdated.setCountry(storeToUpdate.getCountry());
+		storeFormUpdated.setModifiedAt(storeToUpdate.getModifiedAt());
+		storeFormUpdated.setPostCode(storeToUpdate.getPostCode());
+		storeFormUpdated.setStoreAddressFirstLine(storeToUpdate.getStoreAddressFirstLine());
+		storeFormUpdated.setStoreAddressSecondLine(storeToUpdate.getStoreAddressSecondLine());
+		storeFormUpdated.setStoreDescription(storeToUpdate.getStoreDescription());
+		storeFormUpdated.setStoreName(storeToUpdate.getStoreName());
+		storeFormUpdated.setSurface(storeToUpdate.getSurface());
+		storeFormUpdated.setCreatedAt(storeToUpdate.getCreatedAt());
+		//ModelAndView model = new ModelAndView();
+		//model.addObject("storeForm", storeFormUpdated);
+		//model.setViewName("stores/show_store");
+		model.addAttribute("storeForm",storeFormUpdated);
+	    return "stores/show_store";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * @param idStore 
+	 * @return stores page search
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String deleteStore(@RequestParam("idStore") int idStore, Model model) {
+		storeService.deleteById(idStore);
+		List<Store> listStore = storeService.findAll();
+		model.addAttribute("listStore",listStore);
+	    return "stores/search";
+	}	
 	
 }

@@ -89,13 +89,13 @@ public class HangAuthenticationProvider implements AuthenticationProvider {
 				public String getAuthority() {
 					switch (profilId){
 						case 1:
-							return Constants.ADMIN_ROLE;
+							return HangConstants.ADMIN_ROLE;
 						
 						case 2:
-							return Constants.USER_ROLE;
+							return HangConstants.USER_ROLE;
 						
 						default:
-							return Constants.ERROR;
+							return HangConstants.ERROR;
 					}
 					
 				}        		
