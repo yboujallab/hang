@@ -7,8 +7,7 @@
 <title>Stores</title>
 </head>
 <body>
-	<div class="jumbotron">
-		<%@ include file="../menus/left-menu.html"%>
+<%-- 		<%@ include file="../menus/left-menu.html"%> --%>
 		<div class="col-sm-9">
 			<div class="container">
 				<div>
@@ -139,7 +138,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 <script type="text/javascript">
 	/** Fonction basculant la visibilité d'un élément dom

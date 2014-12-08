@@ -4,10 +4,8 @@
 <title>Login Page</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
-  <div class="jumbotron">
 	<div class="container">
-		<h2>Welcome to Hang, the other way to manage you store</h2>
-
+		<h2 style="color:#FFFFFF">Welcome to Hang, the other way to manage you store</h2>
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<c:if test="${not empty error}">
@@ -16,7 +14,7 @@
 				<c:if test="${not empty msg}">
 					<div class="msg">${msg}</div>
 				</c:if>
-				<h1 class="text-center login-title">Log in</h1>
+				<h1 class="text-center login-title text" style="color:#FFFFFF" >Log in</h1>
 				<div class="account-wall">
 <!-- 					<img class="profile-img"
 						src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
@@ -45,6 +43,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
 </body>
+<%@ include file="layouts/_footer.jsp"%>
 </html>

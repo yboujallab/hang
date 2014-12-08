@@ -7,8 +7,7 @@
 <title>Stores</title>
 </head>
 <body>
-	<div class="jumbotron">
-		<%@ include file="../menus/left-menu.html"%>
+<%-- 		<%@ include file="../menus/left-menu.html"%> --%>
 		<div class="col-sm-9">
 			<div class="container">
 				<!-- Form stores   <%-- action="${baseURL}/stores/update" --%>-->
@@ -74,6 +73,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

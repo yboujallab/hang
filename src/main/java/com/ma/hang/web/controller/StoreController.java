@@ -92,15 +92,9 @@ public class StoreController {
 		return model;
 	}
 	/**
+	 * @param model 
 	 * @return add page
 	 */
-/*	@RequestMapping(value ="/add", method = RequestMethod.GET)
-	public ModelAndView addStore() {
-		ModelAndView model = new ModelAndView();
-		model.addObject("storeForm", new StoreForm()); // the Category object is used as a template to generate the form
-		model.setViewName("stores/add_store");
-		return model;
-	}*/
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String viewAdd(Map<String, Object> model) {
@@ -112,6 +106,7 @@ public class StoreController {
 	 /**
 	 * @param storeForm
 	 * @param result
+	 * @param model 
 	 * @param principal 
 	 * @return model end view
 	 */
@@ -193,6 +188,8 @@ public class StoreController {
 	}
 	/**
 	 * @param storeForm 
+	 * @param result 
+	 * @param model 
 	 * @return stores page update
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -224,14 +221,12 @@ public class StoreController {
 		storeFormUpdated.setStoreName(storeToUpdate.getStoreName());
 		storeFormUpdated.setSurface(storeToUpdate.getSurface());
 		storeFormUpdated.setCreatedAt(storeToUpdate.getCreatedAt());
-		//ModelAndView model = new ModelAndView();
-		//model.addObject("storeForm", storeFormUpdated);
-		//model.setViewName("stores/show_store");
 		model.addAttribute("storeForm",storeFormUpdated);
 	    return "stores/show_store";
 	}
 	/**
 	 * @param idStore 
+	 * @param model 
 	 * @return stores page search
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
