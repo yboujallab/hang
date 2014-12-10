@@ -18,7 +18,7 @@ private String storeName;
 
 	private String storeAddressSecondLine;
 
-	private long surface;
+	private String surface;
 	
 	private Date modifiedAt;
 
@@ -77,14 +77,14 @@ private String storeName;
 	/**
 	 * @return surface
 	 */
-	public long getSurface() {
+	public String getSurface() {
 		return surface;
 	}
 
 	/**
 	 * @param surface
 	 */
-	public void setSurface(long surface) {
+	public void setSurface(String surface) {
 		this.surface = surface;
 	}
 

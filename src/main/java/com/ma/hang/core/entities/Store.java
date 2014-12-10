@@ -56,7 +56,7 @@ public class Store implements Serializable {
 	
 	@NotNull
 	@Column(name = "surface")
-	private long surface;
+	private float surface;
 	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -211,14 +211,14 @@ public class Store implements Serializable {
 	/**
 	 * @return the surface
 	 */
-	public long getSurface() {
+	public float getSurface() {
 		return surface;
 	}
 
 	/**
 	 * @param surface
 	 */
-	public void setSurface(long surface) {
+	public void setSurface(float surface) {
 		this.surface = surface;
 	}
 

@@ -17,16 +17,16 @@
 			<div id="searchForm">
 				<table border=1>
 					<tr>
-						<th style="color: #FFFFFF">Store Name</th>
-						<th style="color: #FFFFFF">Store Description</th>
-						<th style="color: #FFFFFF">Adrress Line 1</th>
-						<th style="color: #FFFFFF">Adrress Line 2</th>
-						<th style="color: #FFFFFF">Country</th>
-						<th style="color: #FFFFFF">City</th>
-						<th style="color: #FFFFFF">Post Code</th>
-						<th style="color: #FFFFFF">Surface</th>
-						<th style="color: #FFFFFF">Crée le</th>
-						<th style="color: #FFFFFF">Modifié le</th>
+						<th style="color: #B6B6B4">Store Name</th>
+						<th style="color: #B6B6B4">Store Description</th>
+						<th style="color: #B6B6B4">Adrress Line 1</th>
+						<th style="color: #B6B6B4">Adrress Line 2</th>
+						<th style="color: #B6B6B4">Country</th>
+						<th style="color: #B6B6B4">City</th>
+						<th style="color: #B6B6B4">Post Code</th>
+						<th style="color: #B6B6B4">Surface</th>
+						<th style="color: #B6B6B4">Crée le</th>
+						<th style="color: #B6B6B4">Modifié le</th>
 					</tr>
 					<c:forEach var="store" items="${listStore}">
 						<tr>
@@ -81,6 +81,7 @@
 				</table>
 			</div>
 		</div>
+							<%@ include file="../layouts/_footer.jsp"%>
 	</div>
 </body>
 </html>

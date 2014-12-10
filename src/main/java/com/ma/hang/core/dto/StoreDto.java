@@ -22,7 +22,7 @@ public class StoreDto implements Serializable{
 
 	private String storeAddressSecondLine;
 
-	private long surface;
+	private float surface;
 	
 	private Date modifiedAt;
 
@@ -67,14 +67,14 @@ public class StoreDto implements Serializable{
 	/**
 	 * @return surface
 	 */
-	public long getSurface() {
+	public float getSurface() {
 		return surface;
 	}
 
 	/**
 	 * @param surface
 	 */
-	public void setSurface(long surface) {
+	public void setSurface(float surface) {
 		this.surface = surface;
 	}
 

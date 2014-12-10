@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <body>
+      <footer>
+        <p>&copy; Hang 2014</p>
+      </footer>
 	<script type="text/javascript" src="<c:url value="/resources/assets/js/lineandbars.js" />"></script>
     
 	<script type="text/javascript" src="<c:url value="/resources/assets/js/dash-charts.js" />"></script>

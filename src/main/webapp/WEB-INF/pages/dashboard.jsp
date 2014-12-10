@@ -7,18 +7,18 @@
 </head>
 <body>
 	<div class="container">
-<%-- 		<%@ include file="menus/left-menu.html"%> --%>
+		<%-- 		<%@ include file="menus/left-menu.html"%> --%>
 		<!-- FIRST ROW OF BLOCKS -->
 		<div class="row">
 
 
-		      <!-- LOCAL TIME BLOCK -->
-      		<div class="half-unit">
-	      		<dtitle>Local Time</dtitle>
-	      		<hr>
-		      		<div class="clockcenter">
-			      		<digiclock>12:45:25</digiclock>
-		      		</div>
+			<!-- LOCAL TIME BLOCK -->
+			<div class="half-unit">
+				<dtitle>Local Time</dtitle>
+				<hr>
+				<div class="clockcenter">
+					<digiclock>12:45:25</digiclock>
+				</div>
 			</div>
 
 			<!-- USER PROFILE BLOCK -->
@@ -27,7 +27,8 @@
 					<dtitle>User Profile</dtitle>
 					<hr>
 					<div class="thumbnail">
-						<img src="<c:url value="/resources/assets/img/face80x80.jpg" />" alt="${pageContext.request.userPrincipal.name}"
+						<img src="<c:url value="/resources/assets/img/face80x80.jpg" />"
+							alt="${pageContext.request.userPrincipal.name}"
 							class="img-circle">
 					</div>
 					<!-- /thumbnail -->
@@ -42,36 +43,26 @@
 					</div>
 				</div>
 			</div>
-
-
-	  <!-- Stores BLOCK -->     
-		<div class="col-sm-3 col-lg-3">
-			<div class="dash-unit">
-	      		<dtitle>Stores</dtitle>
-	      		<hr>
-	      		<div class="info-user">
-					<span aria-hidden="true" class="li_bubble fs2"></span>
+			<!-- Stores BLOCK -->
+			<div class="col-sm-3 col-lg-3">
+				<div class="dash-unit">
+					<dtitle>Stores</dtitle>
+					<hr>
+					<div class="info-user">
+						<span aria-hidden="true" class="li_bubble fs2"></span>
+					</div>
+					<div class="cont">
+						<p>
+							<a href="${baseURL}/stores/findAll">Search stores</a>
+						</p>
+						<p>
+							<a href="${baseURL}/stores/add">New store</a>
+						</p>
+					</div>
 				</div>
-	      		<div class="cont">
-	      			<p><a href="${baseURL}/stores/findAll">Search stores</a></p>
-					<p><a href="${baseURL}/stores/add">New store</a></p>	      			
-	      		</div>
 			</div>
 		</div>
-		
-			
-		</div>
-		
-<%-- 		<div class="col-sm-9">
-			<div class="container">
-				<h1>${title}</h1>
-				<h1>${message}</h1>
-				<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<h2>Welcome : ${pageContext.request.userPrincipal.name}</h2>
-				</c:if>
-			</div>
-		</div> --%>
+<%@ include file="layouts/_footer.jsp"%>
 	</div>
 </body>
-<%@ include file="layouts/_footer.jsp"%>
 </html>

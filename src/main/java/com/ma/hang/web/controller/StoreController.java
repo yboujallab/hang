@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,6 +51,7 @@ public class StoreController {
     @InitBinder
     private void initBinder(WebDataBinder binder) {
         binder.setValidator(validator);
+        binder.registerCustomEditor(Float.TYPE, new CustomNumberEditor(Float.class, false));
     }
     
 	/**
@@ -128,7 +130,7 @@ public class StoreController {
 		storeToAdd.setStoreAddressSecondLine(storeForm.getStoreAddressSecondLine());
 		storeToAdd.setStoreDescription(storeForm.getStoreDescription());
 		storeToAdd.setStoreName(storeForm.getStoreName());
-		storeToAdd.setSurface(storeForm.getSurface());
+		storeToAdd.setSurface(Float.valueOf(storeForm.getSurface()));
 		com.ma.hang.core.entities.User currentUser = userService.findByEmail(principal.getName());
 		storeToAdd.setUser(currentUser);
 		storeService.create(storeToAdd);
@@ -152,7 +154,7 @@ public class StoreController {
 		storeForm.setStoreAddressSecondLine(storeDetails.getStoreAddressSecondLine());
 		storeForm.setStoreDescription(storeDetails.getStoreDescription());
 		storeForm.setStoreName(storeDetails.getStoreName());
-		storeForm.setSurface(storeDetails.getSurface());
+		storeForm.setSurface(String.valueOf(storeDetails.getSurface()));
 		storeForm.setCreatedAt(storeDetails.getCreatedAt());
 		ModelAndView model = new ModelAndView();
 		model.addObject("storeForm", storeForm);
@@ -178,7 +180,7 @@ public class StoreController {
 		storeForm.setStoreAddressSecondLine(storeDetails.getStoreAddressSecondLine());
 		storeForm.setStoreDescription(storeDetails.getStoreDescription());
 		storeForm.setStoreName(storeDetails.getStoreName());
-		storeForm.setSurface(storeDetails.getSurface());
+		storeForm.setSurface(String.valueOf(storeDetails.getSurface()));
 		storeForm.setCreatedAt(storeDetails.getCreatedAt());
 		ModelAndView model = new ModelAndView();
 		model.addObject("storeForm", storeForm);
@@ -207,7 +209,7 @@ public class StoreController {
 		storeToUpdate.setStoreAddressSecondLine(storeForm.getStoreAddressSecondLine());
 		storeToUpdate.setStoreDescription(storeForm.getStoreDescription());
 		storeToUpdate.setStoreName(storeForm.getStoreName());
-		storeToUpdate.setSurface(storeForm.getSurface());
+		storeToUpdate.setSurface(Float.valueOf(storeForm.getSurface()));
 		storeService.create(storeToUpdate);
 		StoreForm storeFormUpdated = new StoreForm();
 		storeFormUpdated.setIdStore(storeToUpdate.getIdStore());
@@ -219,7 +221,7 @@ public class StoreController {
 		storeFormUpdated.setStoreAddressSecondLine(storeToUpdate.getStoreAddressSecondLine());
 		storeFormUpdated.setStoreDescription(storeToUpdate.getStoreDescription());
 		storeFormUpdated.setStoreName(storeToUpdate.getStoreName());
-		storeFormUpdated.setSurface(storeToUpdate.getSurface());
+		storeFormUpdated.setSurface(String.valueOf(storeToUpdate.getSurface()));
 		storeFormUpdated.setCreatedAt(storeToUpdate.getCreatedAt());
 		model.addAttribute("storeForm",storeFormUpdated);
 	    return "stores/show_store";

@@ -137,6 +137,7 @@
 					</table>
 				</div>
 			</div>
+					<%@ include file="../layouts/_footer.jsp"%>
 		</div>
 </body>
 <script type="text/javascript">

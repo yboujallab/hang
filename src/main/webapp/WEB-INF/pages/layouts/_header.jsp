@@ -26,6 +26,10 @@
 
 <link href="<c:url value="/resources/css/custom.css" />"
 	rel="stylesheet">
+
+<link href="<c:url value="/resources/assets/css/bootstrap-responsive.css" />"
+	rel="stylesheet">
+	
 <link href="<c:url value="/resources/assets/css/main.css" />"
 	rel="stylesheet">
 <link href="<c:url value="/resources/assets/css/font-style.css" />"
@@ -41,9 +45,16 @@
 	src="http://code.jquery.com/jquery-latest.js"></script>
 
 <style type="text/css">
-body {
-	padding-top: 60px;
-}
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .bgcolor {
+        background-color: none;
+      }      
+      .lightblue {
+       background-color: none;
+      }
 </style>
 <script type="text/javascript">
 $(document).ready(function () {
