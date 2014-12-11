@@ -30,10 +30,10 @@ public class StoreValidator  implements Validator{
 			 pattern = Pattern.compile(FLOAT_PATTERN);  
 			 matcher = pattern.matcher(storeForm.getSurface().toString());  
 			   if (!matcher.matches()) 
-			    errors.rejectValue("surface", "valid.surface.not.numeric");  
+			    errors.rejectValue("surface", "valid.not.numeric");  
 			   else
 				   if(Float.valueOf(storeForm.getSurface()) < 0)
-					    errors.rejectValue("surface", "valid.surface.not.negative");  
+					    errors.rejectValue("surface", "valid.not.negative");  
 
 		}
 		

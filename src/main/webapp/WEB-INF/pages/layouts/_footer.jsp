@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <body>
-      <footer>
+<br />
+<br />
+<br />
+
+      <footer align="center">
         <p>&copy; Hang 2014</p>
       </footer>
 	<script type="text/javascript" src="<c:url value="/resources/assets/js/lineandbars.js" />"></script>

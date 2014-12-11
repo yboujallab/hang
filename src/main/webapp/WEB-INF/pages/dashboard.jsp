@@ -7,20 +7,8 @@
 </head>
 <body>
 	<div class="container">
-		<%-- 		<%@ include file="menus/left-menu.html"%> --%>
 		<!-- FIRST ROW OF BLOCKS -->
 		<div class="row">
-
-
-			<!-- LOCAL TIME BLOCK -->
-			<div class="half-unit">
-				<dtitle>Local Time</dtitle>
-				<hr>
-				<div class="clockcenter">
-					<digiclock>12:45:25</digiclock>
-				</div>
-			</div>
-
 			<!-- USER PROFILE BLOCK -->
 			<div class="col-sm-3 col-lg-3">
 				<div class="dash-unit">
@@ -53,7 +41,7 @@
 					</div>
 					<div class="cont">
 						<p>
-							<a href="${baseURL}/stores/findAll">Search stores</a>
+							<a href="${baseURL}/stores/findAll">Find store</a>
 						</p>
 						<p>
 							<a href="${baseURL}/stores/add">New store</a>
@@ -61,8 +49,38 @@
 					</div>
 				</div>
 			</div>
+			<!-- LOCAL TIME BLOCK -->
+			<div class="col-sm-3 col-lg-3">
+				<div class="dash-unit">
+					<dtitle>Local Time</dtitle>
+					<hr>
+					<div class="clockcenter">
+						<digiclock>12:45:25</digiclock>
+					</div>
+				</div>
+			</div>
 		</div>
-<%@ include file="layouts/_footer.jsp"%>
+		<div class="row">
+			<!-- Suppliers BLOCK -->
+			<div class="col-sm-3 col-lg-3">
+				<div class="dash-unit">
+					<dtitle>Suppliers</dtitle>
+					<hr>
+					<div class="info-user">
+						<span aria-hidden="true" class="li_bubble fs2"></span>
+					</div>
+					<div class="cont">
+						<p>
+							<a href="${baseURL}/suppliers/findAll">Find supplier</a>
+						</p>
+						<p>
+							<a href="${baseURL}/suppliers/add">New supplier</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>		
+		<%@ include file="layouts/_footer.jsp"%>
 	</div>
 </body>
 </html>

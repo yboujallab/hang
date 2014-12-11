@@ -2,45 +2,40 @@
 <body>
 		<div class="container">
 			<div class="container-fluid">
-			<form:form method="POST" action="${baseURL}/stores/update"
-				modelAttribute="storeForm" class="form-horizontal">
-				<legend>Store Form</legend>
+			<form:form method="POST" action="${baseURL}/suppliers/update"
+				modelAttribute="supForm" class="form-horizontal">
+				<legend>Supplier Details</legend>
 					<div class="span8">
 						<div class="row-fluid">
 							<div class="span6 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="storeName">Store Name</label>
+									<label class="control-label" for="supplierName">Supplier Name</label>
 									<div class="controls">
-										<form:errors path="storeName" cssStyle="color: #ff0000;" />
-										<form:input class="form-control" path="storeName"
+										<form:errors path="name" cssStyle="color: #ff0000;" />
+										<form:input class="form-control" path="name"
 											style="color:black" type="text" />
 									</div>
 								</div>
 							</div>
-							<!--/span-->
-							<div class="span6 bgcolor">
+						<div class="span6 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="storeDescription">Store
-										Description</label>
+									<label class="control-label" for="supplierActivity">Supplier Activity</label>
 									<div class="controls">
-										<form:errors path="storeDescription"
-											cssStyle="color: #ff0000;" />
-										<form:textarea path="storeDescription" class="form-control"
-											style="color:black" id="storeDescription" />
+									<form:errors path="activity" cssStyle="color: #ff0000;" />
+										<form:input class="form-control" path="activity"
+											style="color:black" type="text" />
 									</div>
 								</div>
-							</div>
+							</div>							
 							<!--/span-->
-						</div>
-						<!--/row-->
-						<div class="row-fluid">
 							<div class="span6 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="surface">Surface</label>
+									<label class="control-label" for="storeDescription">Supplier
+										Description</label>
 									<div class="controls">
-										<form:errors path="surface" cssStyle="color: #ff0000;" />
-										<form:input path="surface" class="form-control" id="surface"
-											style="color:black" type="text" value="${storeForm.surface}" />
+										<form:errors path="description" cssStyle="color: #ff0000;" />
+										<form:textarea path="description" class="form-control"
+											style="color:black" id="supDescription" />
 									</div>
 								</div>
 							</div>
@@ -51,29 +46,11 @@
 						<div class="row-fluid">
 							<div class="span12 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="street">Store Address
-										First Line</label>
+									<label class="control-label" for="street">Address</label>
 									<div class="controls">
-										<form:errors path="storeAddressFirstLine"
-											cssStyle="color: #ff0000;" />
-										<form:textarea path="storeAddressFirstLine"
+										<form:textarea path="address"
 											class="form-control" style="color:black"
-											id="storeAddressFirstLine"
-											value="${storeForm.storeAddressFirstLine}" />
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-fluid">
-							<div class="span12 bgcolor">
-								<div class="control-group">
-									<label class="control-label" for="street-2">Store Address
-										Second Line</label>
-									<div class="controls">
-										<form:textarea path="storeAddressSecondLine"
-											class="form-control" style="color:black"
-											id="storeAddressSecondLine"
-											value="${storeForm.storeAddressSecondLine}" />
+											id="address"/>
 									</div>
 								</div>
 							</div>
@@ -83,9 +60,8 @@
 								<div class="control-group">
 									<label class="control-label" for="city">City</label>
 									<div class="controls">
-										<form:errors path="city" cssStyle="color: #ff0000;" />
 										<form:input path="city" class="form-control" id="city"
-											type="text" style="color:black" value="${storeForm.city}" />
+											type="text" style="color:black"  />
 									</div>
 								</div>
 							</div>
@@ -94,9 +70,8 @@
 								<div class="control-group">
 									<label class="control-label" for="state">Country</label>
 									<div class="controls">
-										<form:errors path="country" cssStyle="color: #ff0000;" />
 										<form:input path="country" class="form-control" id="country"
-											style="color:black" type="text" value="${storeForm.country}" />
+											style="color:black" type="text"  />
 									</div>
 								</div>
 							</div>
@@ -108,8 +83,9 @@
 								<div class="control-group">
 									<label class="control-label" for="postCode">Post Code</label>
 									<div class="controls">
+										<form:errors path="postCode" cssStyle="color: #ff0000;" />
 										<form:input path="postCode" class="form-control" id="postCode"
-											type="text" style="color:black" value="${storeForm.postCode}" />
+											type="text" style="color:black"  />
 									</div>
 								</div>
 							</div>
@@ -124,7 +100,7 @@
 									<label class="control-label" for="createdDate">Created
 										On :</label>
 									<div class="controls">
-										<form:label path="createdAt" class="form-control">${storeForm.createdAt}</form:label>
+										<form:label path="creationDate" class="form-control">${supForm.creationDate}</form:label>
 									</div>
 								</div>
 							</div>
@@ -134,7 +110,7 @@
 									<label class="control-label" for="ModificarionDate">Modified
 										On:</label>
 									<div class="controls">
-										<form:label path="modifiedAt" class="form-control">${storeForm.modifiedAt}</form:label>
+										<form:label path="modificationDate" class="form-control">${supForm.modificationDate}</form:label>
 									</div>
 								</div>
 							</div>
@@ -144,13 +120,13 @@
 						<!--/row-->
 						<div class="span4">
 							<button id="save" class="btn btn-primary" type="submit"
-								value="Save">Save</button>
+								value="Update">Update</button>
 						</div>
 						<!--/span-->
 					</div>
 					<!--/row-->
-					<form:input path="idStore" type="hidden"
-						value="${storeForm.idStore}" />
+					<form:input path="idSupplier" type="hidden"
+						value="${supForm.idSupplier}" />
 			</form:form>
 		</div>
 		<hr>

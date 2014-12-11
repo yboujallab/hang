@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,7 +34,7 @@ public class Supplier implements Serializable {
 	private int idSupplier;
 
 	@NotNull
-	@Column(name="name",unique=true)
+	@Column(name="name")
 	private String name;
 
 	@Column(name="description")
@@ -51,7 +53,24 @@ public class Supplier implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date creationDate;
+	
+	@Column(name = "country")
+	private String country;
+	
+	@Column(name = "city")
+	private String city;
+	
+	@Column(name = "post_code")
+	private Integer postCode;
 
+	
+	// bi-directional many-to-one association to Profil
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "id_user")
+	private User user;
+
+	
 	public int getIdSupplier() {
 		return idSupplier;
 	}
@@ -107,7 +126,43 @@ public class Supplier implements Serializable {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Integer getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(Integer postCode) {
+		this.postCode = postCode;
+	}
+	/**
+	 * @return user 
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	
 }

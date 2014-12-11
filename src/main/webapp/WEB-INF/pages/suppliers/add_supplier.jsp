@@ -2,45 +2,41 @@
 <body>
 		<div class="container">
 			<div class="container-fluid">
-			<form:form method="POST" action="${baseURL}/stores/add"
-				commandName="storeForm" class="form-horizontal">
-				<legend>Store Form</legend>
+			<form:form method="POST" action="${baseURL}/suppliers/add"
+				commandName="supForm" class="form-horizontal">
+				<legend>Add a new Supplier</legend>
 					<div class="span8">
 						<div class="row-fluid">
 							<div class="span6 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="storeName">Store Name</label>
+									<label class="control-label" for="name">Supplier Name</label>
 									<div class="controls">
-										<form:errors path="storeName" cssStyle="color: #ff0000;" />
-										<form:input class="form-control" path="storeName"
+										<form:errors path="name" cssStyle="color: #ff0000;" />
+										<form:input class="form-control" path="name"
 											style="color:black" type="text" />
 									</div>
 								</div>
 							</div>
-							<!--/span-->
-							<div class="span6 bgcolor">
+						<div class="span6 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="storeDescription">Store
-										Description</label>
+									<label class="control-label" for="activity">Supplier Activity</label>
 									<div class="controls">
-										<form:errors path="storeDescription"
-											cssStyle="color: #ff0000;" />
-										<form:textarea path="storeDescription" class="form-control"
-											style="color:black" id="storeDescription" />
+										<form:errors path="activity" cssStyle="color: #ff0000;" />
+										<form:input class="form-control" path="activity"
+											style="color:black" type="text"/>
 									</div>
 								</div>
-							</div>
+							</div>								
 							<!--/span-->
-						</div>
-						<!--/row-->
-						<div class="row-fluid">
 							<div class="span6 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="surface">Surface</label>
+									<label class="control-label" for="description">Supplier
+										Description</label>
 									<div class="controls">
-										<form:errors path="surface" cssStyle="color: #ff0000;" />
-										<form:input path="surface" class="form-control" id="surface"
-											style="color:black" type="text"/>
+										<form:errors path="description"
+											cssStyle="color: #ff0000;" />
+										<form:textarea path="description" class="form-control"
+											style="color:black" id="description" />
 									</div>
 								</div>
 							</div>
@@ -51,29 +47,12 @@
 						<div class="row-fluid">
 							<div class="span12 bgcolor">
 								<div class="control-group">
-									<label class="control-label" for="street">Store Address
-										First Line</label>
+									<label class="control-label" for="street">Address</label>
 									<div class="controls">
-										<form:errors path="storeAddressFirstLine"
-											cssStyle="color: #ff0000;" />
-										<form:textarea path="storeAddressFirstLine"
+										<form:textarea path="address"
 											class="form-control" style="color:black"
-											id="storeAddressFirstLine"
+											id="address"
 											 />
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-fluid">
-							<div class="span12 bgcolor">
-								<div class="control-group">
-									<label class="control-label" for="street-2">Store Address
-										Second Line</label>
-									<div class="controls">
-										<form:textarea path="storeAddressSecondLine"
-											class="form-control" style="color:black"
-											id="storeAddressSecondLine"
-											/>
 									</div>
 								</div>
 							</div>
@@ -83,7 +62,6 @@
 								<div class="control-group">
 									<label class="control-label" for="city">City</label>
 									<div class="controls">
-										<form:errors path="city" cssStyle="color: #ff0000;" />
 										<form:input path="city" class="form-control" id="city"
 											type="text" style="color:black" />
 									</div>
@@ -94,7 +72,6 @@
 								<div class="control-group">
 									<label class="control-label" for="state">Country</label>
 									<div class="controls">
-										<form:errors path="country" cssStyle="color: #ff0000;" />
 										<form:input path="country" class="form-control" id="country"
 											style="color:black" type="text" />
 									</div>
@@ -108,6 +85,7 @@
 								<div class="control-group">
 									<label class="control-label" for="postCode">Post Code</label>
 									<div class="controls">
+										<form:errors path="postCode" cssStyle="color: #ff0000;" />
 										<form:input path="postCode" class="form-control" id="postCode"
 											type="text" style="color:black"  />
 									</div>

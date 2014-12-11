@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -134,6 +136,9 @@ public class StoreController {
 		com.ma.hang.core.entities.User currentUser = userService.findByEmail(principal.getName());
 		storeToAdd.setUser(currentUser);
 		storeService.create(storeToAdd);
+		storeForm.setCreatedAt(storeToAdd.getCreatedAt());
+		storeForm.setModifiedAt(storeToAdd.getModifiedAt());
+		storeForm.setIdStore(storeToAdd.getIdStore());
 	    return "stores/show_store";	
 	    }
 	
@@ -238,5 +243,11 @@ public class StoreController {
 		model.addAttribute("listStore",listStore);
 	    return "stores/search";
 	}	
+	@RequestMapping(value = "/back", method = RequestMethod.POST)
+	public String rateHandler(HttpServletRequest request) {
+	    //your controller code
+	    String referer = request.getHeader("Referer");
+	    return "redirect:"+ referer;
+	}
 	
 }
