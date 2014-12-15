@@ -9,6 +9,11 @@ import org.springframework.validation.Validator;
 
 import com.ma.hang.web.form.StoreForm;
 
+/**
+ * @author yboujallab
+ * Validator of store forms
+ *
+ */
 public class StoreValidator  implements Validator{
 
 	private Pattern pattern;  
@@ -32,7 +37,7 @@ public class StoreValidator  implements Validator{
 			   if (!matcher.matches()) 
 			    errors.rejectValue("surface", "valid.not.numeric");  
 			   else
-				   if(Float.valueOf(storeForm.getSurface()) < 0)
+				   if(Float.valueOf(storeForm.getSurface()) <= 0)
 					    errors.rejectValue("surface", "valid.not.negative");  
 
 		}

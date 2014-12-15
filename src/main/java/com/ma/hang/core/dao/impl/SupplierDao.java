@@ -9,6 +9,7 @@ import com.ma.hang.core.dao.ISupplierDao;
 import com.ma.hang.core.dao.common.AbstractDao;
 import com.ma.hang.core.dto.SupplierDto;
 import com.ma.hang.core.entities.Supplier;
+import com.ma.hang.core.entities.User;
 
 
 /**
@@ -95,14 +96,27 @@ public class SupplierDao extends AbstractDao<Supplier> implements
 		}
 		if(supplierBean.getUser()!= null) {
 			if (isFirst) {
-				query.append(" where postCode like '%"
-						+ supplierBean.getPostCode() + "%'");
+				query.append(" where user.idUser = "
+						+ supplierBean.getUser().getIdUser());
 			} else {
-				query.append(" and postCode like '%"
-						+ supplierBean.getPostCode() + "%'");
+				query.append(" and user.idUser = "
+						+ supplierBean.getUser().getIdUser());
 			}
 			isFirst = false;
-		}		
+		}	
+		
+		Query result = getCurrentSession().createQuery(query.toString());
+		return result.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Supplier> findAllByUser(User user) {
+		StringBuilder query = new StringBuilder("from Supplier ");
+		if(user!= null) {
+				query.append(" where user.idUser = "
+						+ user.getIdUser());
+		}	
 		Query result = getCurrentSession().createQuery(query.toString());
 		return result.list();
 	}

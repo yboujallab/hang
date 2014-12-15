@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import ch.qos.logback.classic.Logger;
 
 import com.ma.hang.core.dto.StoreDto;
 import com.ma.hang.core.entities.Store;
@@ -41,6 +44,9 @@ import com.ma.hang.web.form.StoreForm;
 @RequestMapping(value = URLRestConstants.url_stores_root)
 public class StoreController {
  	
+	final static Logger LOGGER = (Logger) LoggerFactory
+			.getLogger(StoreController.class);
+	
 	@Autowired
 	private IStoreService storeService;
 	
@@ -86,13 +92,15 @@ public class StoreController {
 	}
 	
 	/**
+	 * @param principal 
 	 * @return stores page
 	 */
 	@RequestMapping(value ="/findAll", method = RequestMethod.GET)
-	public ModelAndView findAllStore() {
+	public ModelAndView findAllStore(Principal principal) {
+		com.ma.hang.core.entities.User currentUser = userService.findByEmail(principal.getName());
 		ModelAndView model = new ModelAndView();
 		model.addObject("storeForm", new StoreForm()); 
-		List<Store> listStore = storeService.findAll();
+		List<Store> listStore = storeService.findAllByUser(currentUser);
 		model.addObject("listStore",listStore);
 		model.setViewName("stores/search");
 		return model;
@@ -134,7 +142,7 @@ public class StoreController {
 		storeToAdd.setStoreAddressSecondLine(storeForm.getStoreAddressSecondLine());
 		storeToAdd.setStoreDescription(storeForm.getStoreDescription());
 		storeToAdd.setStoreName(storeForm.getStoreName());
-		storeToAdd.setSurface(Float.valueOf(storeForm.getSurface()));
+		storeToAdd.setSurface(new Float(storeForm.getSurface()));
 		com.ma.hang.core.entities.User currentUser = userService.findByEmail(principal.getName());
 		storeToAdd.setUser(currentUser);
 		storeService.create(storeToAdd);
@@ -216,7 +224,7 @@ public class StoreController {
 		storeToUpdate.setStoreAddressSecondLine(storeForm.getStoreAddressSecondLine());
 		storeToUpdate.setStoreDescription(storeForm.getStoreDescription());
 		storeToUpdate.setStoreName(storeForm.getStoreName());
-		storeToUpdate.setSurface(Float.valueOf(storeForm.getSurface()));
+		storeToUpdate.setSurface(new Float(storeForm.getSurface()));
 		storeService.create(storeToUpdate);
 		StoreForm storeFormUpdated = new StoreForm();
 		storeFormUpdated.setIdStore(storeToUpdate.getIdStore());
@@ -236,12 +244,14 @@ public class StoreController {
 	
 	
 	/**
-	 * @param idStore 
+	 * @param storeForm 
+	 * @param result 
 	 * @param model 
+	 * @param principal 
 	 * @return stores page search
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String searchStore(@ModelAttribute("storeForm") StoreForm storeForm,BindingResult result, Model model) {
+	public String searchStore(@ModelAttribute("storeForm") StoreForm storeForm,BindingResult result, Model model, Principal principal) {
 		StoreDto storeBean = new StoreDto();
 		storeBean.setCity(storeForm.getCity());
 		storeBean.setCountry(storeForm.getCountry());
@@ -252,8 +262,17 @@ public class StoreController {
 		storeBean.setStoreAddressSecondLine(storeForm.getStoreAddressSecondLine());
 		storeBean.setStoreDescription(storeForm.getStoreDescription());
 		storeBean.setStoreName(storeForm.getStoreName());
-		if(storeForm.getSurface() != null)
-		storeBean.setSurface(Float.valueOf(storeForm.getSurface()));
+		com.ma.hang.core.entities.User currentUser = userService.findByEmail(principal.getName());
+		storeBean.setUser(currentUser);
+		if(storeForm.getSurface() != null && !storeForm.getSurface().isEmpty() )
+			try{
+				storeBean.setSurface(new Float(storeForm.getSurface()));
+			}catch (NumberFormatException exp) {
+				//surface is not a numeric number
+				if(LOGGER.isErrorEnabled())
+					LOGGER.error("Surface is not a number "+storeForm.getSurface());
+				storeBean.setSurface(new Float(0.0));
+			}
 		List<Store> listStore = storeService.findByCriteria(storeBean);
 		model.addAttribute("listStore",listStore);
 	    return "stores/search";
@@ -272,6 +291,10 @@ public class StoreController {
 		model.addAttribute("listStore",listStore);
 	    return "stores/search";
 	}	
+	/**
+	 * @param request
+	 * @return string
+	 */
 	@RequestMapping(value = "/back", method = RequestMethod.POST)
 	public String rateHandler(HttpServletRequest request) {
 	    //your controller code

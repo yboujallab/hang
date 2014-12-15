@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.ma.hang.core.dao.common.IOperations;
 import com.ma.hang.core.dto.SupplierDto;
 import com.ma.hang.core.entities.Supplier;
+import com.ma.hang.core.entities.User;
 
 
 /**
@@ -21,4 +22,12 @@ public interface ISupplierDao extends IOperations<Supplier> {
 	 * @return list of Suppliers
 	 */
 	List<Supplier> findByCriteria(SupplierDto supplierBean);
+	
+	/**
+	 * @param user
+	 * @return list of user supplier
+	 */
+	List<Supplier> findAllByUser(User user);
+	
+	
 }

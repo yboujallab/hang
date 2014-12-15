@@ -63,12 +63,14 @@ public class SupplierController {
 		return model;
 	}
 	/**
+	 * @param principal 
 	 * @return fine all page
 	 */
 	@RequestMapping(value ="/findAll", method = RequestMethod.GET)
-	public ModelAndView findAllSuppliers() {
+	public ModelAndView findAllSuppliers(Principal principal) {
+		com.ma.hang.core.entities.User currentUser = userService.findByEmail(principal.getName());
 		ModelAndView model = new ModelAndView();
-		List<Supplier> listSuppliers = supService.findAll();
+		List<Supplier> listSuppliers = supService.findAllByUser(currentUser);
 		SupplierForm supForm = new SupplierForm();
 		model.addObject("supForm", supForm);
 		model.addObject("listSuppliers",listSuppliers);
@@ -89,8 +91,8 @@ public class SupplierController {
 	}
 	
 	/**
-	 * @param idStore 
-	 * @return stores page
+	 * @param idSupplier 
+	 * @return suppliers page
 	 */
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView showSupplier(@RequestParam("idSup") int idSupplier) {
@@ -109,14 +111,13 @@ public class SupplierController {
 		supForm.setPostCode(String.valueOf(supDetails.getPostCode()));
 		ModelAndView model = new ModelAndView();
 		model.addObject("supForm", supForm);
-		//model.addAttribute("supForm", supForm);
 		model.setViewName("suppliers/show_supplier");
 	    return model;
 
 	}
 	
 	 /**
-	 * @param supplier Form
+	 * @param supForm 
 	 * @param result
 	 * @param model 
 	 * @param principal 
@@ -151,9 +152,9 @@ public class SupplierController {
 	    }
 	
 	/**
-	 * @param idStore 
+	 * @param idSupplier 
 	 * @param model 
-	 * @return stores page search
+	 * @return suppliers page search
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteSupplier(@RequestParam("idSup") int idSupplier, Model model) {
@@ -163,8 +164,9 @@ public class SupplierController {
 	    return "suppliers/search";
 	}	
 	/**
-	 * @param idStore 
-	 * @return stores page
+	 * @param idSupplier 
+	 * @param model 
+	 * @return suppliers page
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateSupplier(@RequestParam("idSupplier") int idSupplier, Model model) {
@@ -185,10 +187,10 @@ public class SupplierController {
 	    return "suppliers/update_supplier";
 	}	
 	/**
-	 * @param storeForm 
+	 * @param supForm 
 	 * @param result 
 	 * @param model 
-	 * @return stores page update
+	 * @return supplier page update
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateSupplier(@Validated @ModelAttribute("supForm") SupplierForm supForm,BindingResult result, Model model) {
@@ -213,10 +215,11 @@ public class SupplierController {
 	    return "suppliers/show_supplier";
 	}	
 	/**
-	 * @param storeForm 
+	 * @param supForm 
 	 * @param result 
 	 * @param model 
-	 * @return stores page update
+	 * @param principal 
+	 * @return supplier page update
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String findByCriteria(@ModelAttribute("supForm") SupplierForm supForm,BindingResult result, Model model,Principal principal) {

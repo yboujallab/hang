@@ -63,8 +63,6 @@ public class Supplier implements Serializable {
 	@Column(name = "post_code")
 	private Integer postCode;
 
-	
-	// bi-directional many-to-one association to Profil
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_user")

@@ -9,6 +9,7 @@ import com.ma.hang.core.dao.IStoreDao;
 import com.ma.hang.core.dao.common.IOperations;
 import com.ma.hang.core.dto.StoreDto;
 import com.ma.hang.core.entities.Store;
+import com.ma.hang.core.entities.User;
 import com.ma.hang.core.service.IStoreService;
 import com.ma.hang.core.service.common.AbstractService;
 
@@ -38,6 +39,11 @@ public class StoreService extends AbstractService<Store> implements IStoreServic
 	@Override
 	public List<Store> findByCriteria(StoreDto storeBean) {
 		return ((IStoreDao) getDao()).findByCriteria(storeBean);
+	}
+
+	@Override
+	public List<Store> findAllByUser(User user) {
+		return ((IStoreDao) getDao()).findAllByUser(user);
 	}
 
 }

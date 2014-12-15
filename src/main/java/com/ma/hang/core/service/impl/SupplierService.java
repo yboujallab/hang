@@ -9,6 +9,7 @@ import com.ma.hang.core.dao.ISupplierDao;
 import com.ma.hang.core.dao.common.IOperations;
 import com.ma.hang.core.dto.SupplierDto;
 import com.ma.hang.core.entities.Supplier;
+import com.ma.hang.core.entities.User;
 import com.ma.hang.core.service.ISupplierService;
 import com.ma.hang.core.service.common.AbstractService;
 
@@ -44,5 +45,10 @@ public class SupplierService extends AbstractService<Supplier> implements ISuppl
 		return ((ISupplierDao) getDao()).findByCriteria(supplierBean);
 	}
 
+	@Override
+	public List<Supplier> findAllByUser(User user) {
+		// TODO Auto-generated method stub
+		return ((ISupplierDao) getDao()).findAllByUser(user);
+	}
 
 }

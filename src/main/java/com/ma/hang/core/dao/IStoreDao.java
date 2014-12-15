@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.ma.hang.core.dao.common.IOperations;
 import com.ma.hang.core.dto.StoreDto;
 import com.ma.hang.core.entities.Store;
+import com.ma.hang.core.entities.User;
 
 
 /**
@@ -21,4 +22,9 @@ public interface IStoreDao extends IOperations<Store> {
 	 * @return list of stores
 	 */
 	List<Store> findByCriteria(StoreDto storeDto);
+	/**
+	 * @param user
+	 * @return list of user stores
+	 */
+	List<Store> findAllByUser(User user);
 }
