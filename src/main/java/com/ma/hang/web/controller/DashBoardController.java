@@ -1,5 +1,8 @@
 package com.ma.hang.web.controller;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,12 +18,13 @@ import com.ma.hang.web.constants.URLRestConstants;
  *
  */
 @Controller
+@RequestMapping(value = URLRestConstants.url_root)
 public class DashBoardController {
  
 	/**
 	 * @return dashboard page
 	 */
-	@RequestMapping(value = {URLRestConstants.url_root, URLRestConstants.url_dashboard_root }, method = RequestMethod.GET)
+	@RequestMapping(value = {URLRestConstants.url_root,URLRestConstants.url_dashboard_root }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
  
 		ModelAndView model = new ModelAndView();
@@ -36,11 +40,17 @@ public class DashBoardController {
 	 * @param logout
 	 * @return login page
 	 */
-	@RequestMapping(value = URLRestConstants.url_dashboard_login, method = RequestMethod.GET)
+	@RequestMapping(value =URLRestConstants.url_dashboard_login, method = RequestMethod.GET)
 	public ModelAndView login(
 		@RequestParam(value = "error", required = false) String error,
 		@RequestParam(value = "logout", required = false) String logout) {
- 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+		     /*The user is logged in */
+		    return new ModelAndView("forward:/dashboard");
+		}
+		
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
 			model.addObject("error", "Invalid username and password!");

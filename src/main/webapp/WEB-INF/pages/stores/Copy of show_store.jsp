@@ -14,7 +14,7 @@
 		<div class="col-sm-9">
 			<div id="updateStoreForm">
 				<form:form method="GET"
-					action="${baseURL}/stores/update?idStore=${storeForm.idStore}"
+					action="${pageContext.request.contextPath}/stores/update?idStore=${storeForm.idStore}"
 					modelAttribute="storeForm">
 					<table>
 						<tr>

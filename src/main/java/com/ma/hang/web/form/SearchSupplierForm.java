@@ -1,15 +1,13 @@
-package com.ma.hang.core.dto;
+package com.ma.hang.web.form;
 
 import java.util.Date;
 
-import com.ma.hang.core.entities.User;
 /**
- * Supplier dto
- * */
-public class SupplierDto {
+ * @author yboujallab
+ *
+ */
+public class SearchSupplierForm {
 
-	
-	private int idSupplier;
 
 	private String name;
 
@@ -19,24 +17,38 @@ public class SupplierDto {
 
 	private String address;
 	
-	private String city;
-	
-	private String country;
-	
-	private String postCode;
-	
 	private Date modificationDate;
 
 	private Date creationDate;
-	
-	private User user;
 
-	public int getIdSupplier() {
-		return idSupplier;
+	private String country;
+	
+	private String city;
+	
+	private String postCode;
+	
+	public String getCountry() {
+		return country;
 	}
 
-	public void setIdSupplier(int idSupplier) {
-		this.idSupplier = idSupplier;
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
 	}
 
 	public String getName() {
@@ -85,38 +97,6 @@ public class SupplierDto {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getPostCode() {
-		return postCode;
-	}
-
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
+	}	
+    
 }

@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="container-fluid">
 			<form:form method="GET"
-					action="${baseURL}/suppliers/update?idSup=${supForm.idSupplier}"
+					action="${pageContext.request.contextPath}/suppliers/update?idSupplier=${supForm.idSupplier}"
 					modelAttribute="supForm" class="form-horizontal">
 				<legend>Supplier Details</legend>
 					<div class="span8">
@@ -59,7 +59,7 @@
 									<label class="control-label" for="city">City</label>
 									<div class="controls">
 										<form:input path="city" class="form-control" id="city"
-											type="text" style="color:black"  />
+											type="text" style="color:black"  disabled="true"/>
 									</div>
 								</div>
 							</div>

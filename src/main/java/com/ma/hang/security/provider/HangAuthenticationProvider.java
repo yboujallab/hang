@@ -85,6 +85,11 @@ public class HangAuthenticationProvider implements AuthenticationProvider {
 				/**
 				 * 
 				 */
+				private static final long serialVersionUID = 1L;
+
+				/**
+				 * 
+				 */
 
 				public String getAuthority() {
 					switch (profilId){

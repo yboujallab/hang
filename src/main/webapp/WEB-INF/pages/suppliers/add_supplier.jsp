@@ -2,7 +2,7 @@
 <body>
 		<div class="container">
 			<div class="container-fluid">
-			<form:form method="POST" action="${baseURL}/suppliers/add"
+			<form:form method="POST" action="${pageContext.request.contextPath}/suppliers/add"
 				commandName="supForm" class="form-horizontal">
 				<legend>Add a new Supplier</legend>
 					<div class="span8">

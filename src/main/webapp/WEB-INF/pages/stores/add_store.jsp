@@ -2,7 +2,7 @@
 <body>
 		<div class="container">
 			<div class="container-fluid">
-			<form:form method="POST" action="${baseURL}/stores/add"
+			<form:form method="POST" action="${pageContext.request.contextPath}/stores/add"
 				commandName="storeForm" class="form-horizontal">
 				<legend>Store Form</legend>
 					<div class="span8">

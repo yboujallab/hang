@@ -17,7 +17,7 @@
 <!-- 								
 						<li><a href="#"
 							onClick="toggle('addForm');toggle('searchForm')">New store</a></li>
- -->							<li><a href="${baseURL}/stores/add">New store</a></li>
+ -->							<li><a href="${pageContext.request.contextPath}/stores/add">New store</a></li>
 						<li><a href="#">Remove store</a></li>
 						<li><a href="#">Update store</a></li>
 						<li><a href="#">Delete store</a></li>

@@ -41,10 +41,10 @@
 					</div>
 					<div class="cont">
 						<p>
-							<a href="${baseURL}/stores/findAll">Find store</a>
+							<a href="${pageContext.request.contextPath}/stores/findAll">Find store</a>
 						</p>
 						<p>
-							<a href="${baseURL}/stores/add">New store</a>
+							<a href="${pageContext.request.contextPath}/stores/add">New store</a>
 						</p>
 					</div>
 				</div>
@@ -71,10 +71,10 @@
 					</div>
 					<div class="cont">
 						<p>
-							<a href="${baseURL}/suppliers/findAll">Find supplier</a>
+							<a href="${pageContext.request.contextPath}/suppliers/findAll">Find supplier</a>
 						</p>
 						<p>
-							<a href="${baseURL}/suppliers/add">New supplier</a>
+							<a href="${pageContext.request.contextPath}/suppliers/add">New supplier</a>
 						</p>
 					</div>
 				</div>

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ma.hang.core.dto.StoreDto;
 import com.ma.hang.core.entities.Store;
 import com.ma.hang.core.service.IStoreService;
 import com.ma.hang.core.service.IUserService;
@@ -90,6 +91,7 @@ public class StoreController {
 	@RequestMapping(value ="/findAll", method = RequestMethod.GET)
 	public ModelAndView findAllStore() {
 		ModelAndView model = new ModelAndView();
+		model.addObject("storeForm", new StoreForm()); 
 		List<Store> listStore = storeService.findAll();
 		model.addObject("listStore",listStore);
 		model.setViewName("stores/search");
@@ -231,6 +233,33 @@ public class StoreController {
 		model.addAttribute("storeForm",storeFormUpdated);
 	    return "stores/show_store";
 	}
+	
+	
+	/**
+	 * @param idStore 
+	 * @param model 
+	 * @return stores page search
+	 */
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String searchStore(@ModelAttribute("storeForm") StoreForm storeForm,BindingResult result, Model model) {
+		StoreDto storeBean = new StoreDto();
+		storeBean.setCity(storeForm.getCity());
+		storeBean.setCountry(storeForm.getCountry());
+		storeBean.setCreatedAt(storeForm.getCreatedAt());
+		storeBean.setModifiedAt(storeForm.getModifiedAt());
+		storeBean.setPostCode(storeForm.getPostCode());
+		storeBean.setStoreAddressFirstLine(storeForm.getStoreAddressFirstLine());
+		storeBean.setStoreAddressSecondLine(storeForm.getStoreAddressSecondLine());
+		storeBean.setStoreDescription(storeForm.getStoreDescription());
+		storeBean.setStoreName(storeForm.getStoreName());
+		if(storeForm.getSurface() != null)
+		storeBean.setSurface(Float.valueOf(storeForm.getSurface()));
+		List<Store> listStore = storeService.findByCriteria(storeBean);
+		model.addAttribute("listStore",listStore);
+	    return "stores/search";
+	}
+	
+	
 	/**
 	 * @param idStore 
 	 * @param model 

@@ -2,7 +2,7 @@
 <body>
 		<div class="container">
 			<div class="container-fluid">
-			<form:form method="POST" action="${baseURL}/stores/update"
+			<form:form method="POST" action="${pageContext.request.contextPath}/stores/update"
 				modelAttribute="storeForm" class="form-horizontal">
 				<legend>Store Form</legend>
 					<div class="span8">

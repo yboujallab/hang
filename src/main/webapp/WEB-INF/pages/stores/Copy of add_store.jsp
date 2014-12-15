@@ -9,9 +9,8 @@
 <body>
 		<div class="col-sm-9">
 			<div class="container">
-				<!-- Form stores   <%-- action="${baseURL}/stores/update" --%>-->
 				<div id="updateStoreForm">
-					<form:form method="POST" action="${baseURL}/stores/add"   
+					<form:form method="POST" action="${pageContext.request.contextPath}/stores/add"   
 							commandName="storeForm">
 							<table>
 								<tr><td>&nbsp;</td></tr>

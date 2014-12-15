@@ -2,7 +2,7 @@
 <body>
 		<div class="container">
 			<div class="container-fluid">
-			<form:form method="POST" action="${baseURL}/suppliers/update"
+			<form:form method="POST" action="${pageContext.request.contextPath}/suppliers/update"
 				modelAttribute="supForm" class="form-horizontal">
 				<legend>Supplier Details</legend>
 					<div class="span8">
