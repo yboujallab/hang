@@ -2,13 +2,17 @@ package com.ma.hang.core.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -90,6 +94,10 @@ public class Store implements Serializable {
 	@JoinColumn(name = "id_user")
 	private User user;
 
+	
+/*	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "stores")
+	private Set<Product> products = new HashSet<Product>(0);*/
+	
 	/**
 	 * Constructor
 	 */
@@ -263,5 +271,13 @@ public class Store implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+/*	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}*/
 
 }

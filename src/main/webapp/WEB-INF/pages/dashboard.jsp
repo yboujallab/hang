@@ -79,6 +79,24 @@
 					</div>
 				</div>
 			</div>
+			<!-- Products BLOCK -->
+			<div class="col-sm-3 col-lg-3">
+				<div class="dash-unit">
+					<dtitle>Products</dtitle>
+					<hr>
+					<div class="info-user">
+						<span aria-hidden="true" class="li_bubble fs2"></span>
+					</div>
+					<div class="cont">
+						<p>
+							<a href="${pageContext.request.contextPath}/products/findAll">Find product</a>
+						</p>
+						<p>
+							<a href="${pageContext.request.contextPath}/products/add">New product</a>
+						</p>
+					</div>
+				</div>
+			</div>			
 		</div>		
 		<%@ include file="layouts/_footer.jsp"%>
 	</div>

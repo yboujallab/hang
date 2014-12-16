@@ -2,6 +2,7 @@ package com.ma.hang.core.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -68,6 +70,9 @@ public class Supplier implements Serializable {
 	@JoinColumn(name = "id_user")
 	private User user;
 
+	//bi-directional many-to-one association to Profil
+	@OneToMany(mappedBy="supplier")
+	private List<Product> products;
 	
 	public int getIdSupplier() {
 		return idSupplier;
@@ -160,6 +165,14 @@ public class Supplier implements Serializable {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 	
 	

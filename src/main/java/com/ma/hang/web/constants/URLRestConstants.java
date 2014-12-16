@@ -36,5 +36,8 @@ public class URLRestConstants {
 	 * create supplier  
 	 */
 	public static final String url_supplier_root="/suppliers";
-	
+	/**
+	 * Products  
+	 */
+	public static final String url_product_root="/products";
 }

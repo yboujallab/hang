@@ -97,7 +97,9 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Store> stores;
 	
-	
+	//bi-directional many-to-one association to Profil
+	@OneToMany(mappedBy="user")
+	private List<Supplier> suppliers;
 
 	/**
 	 * Constructor
@@ -305,6 +307,18 @@ public class User implements Serializable {
 
 	public void setActivated(boolean isActivated) {
 		this.isActivated = isActivated;
+	}
+
+	public List<Supplier> getSuppliers() {
+		return suppliers;
+	}
+
+	public void setSuppliers(List<Supplier> suppliers) {
+		this.suppliers = suppliers;
+	}
+
+	public boolean isExpired() {
+		return expired;
 	}
 	
 }

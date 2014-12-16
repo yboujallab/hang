@@ -15,6 +15,8 @@
 		<intercept-url pattern="/dashboard/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/stores/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/suppliers/**" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/products/**" access="ROLE_USER,ROLE_ADMIN" />
+		
 		<form-login 
 		    login-page="/login" 
 		    default-target-url="/dashboard" 

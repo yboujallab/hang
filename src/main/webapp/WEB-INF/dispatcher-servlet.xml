@@ -20,6 +20,7 @@
 	<!-- Validators -->
 	<bean id="storeValidator" class="com.ma.hang.web.validator.StoreValidator" />
 	<bean id="supplierValidator" class="com.ma.hang.web.validator.SupplierValidator" />
+	<bean id="productValidator" class="com.ma.hang.web.validator.ProductValidator" />
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
